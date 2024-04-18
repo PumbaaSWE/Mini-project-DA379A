@@ -22,13 +22,17 @@ public class Menu : MonoBehaviour
     public void Enable()
     {
         gameObject.SetActive(true);
-        elements = GetComponentsInChildren<MenuElement>();
 
-        foreach (var element in elements)
-            element.Initiate();
+        if (elements is null)
+        {
+            elements = GetComponentsInChildren<MenuElement>();
 
-        if (selectables.Length > 0)
-            Select(selectables[0]);
+            foreach (var element in elements)
+                element.Initiate();
+        }
+
+        //if (selectables.Length > 0)
+        //    Select(selectables[0]);
     }
 
     public void Disable()
@@ -37,6 +41,8 @@ public class Menu : MonoBehaviour
             selected.Deselect();
 
         selected = null;
+
+        gameObject.SetActive(false);
     }
 
     public void Select(MenuSelectable selectable)
