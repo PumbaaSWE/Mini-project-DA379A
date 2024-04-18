@@ -5846,6 +5846,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   car: {fileID: 0}
+  carSpawn: {fileID: 0}
 --- !u!1 &2815057473585870556
 GameObject:
   m_ObjectHideFlags: 0
@@ -6087,6 +6088,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5166129015248047097, guid: 9faaec2dc935b3f48a04c56ab37c7fee,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 824cb2c267ab55d4d9fc2c66587c4086, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9faaec2dc935b3f48a04c56ab37c7fee, type: 3}
 --- !u!1 &634876950905815796 stripped
@@ -6306,7 +6312,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: 1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 4.400626, y: -1.5980204, z: 0.814325}
+  m_ConnectedAnchor: {x: -0.93376505, y: 0.34604216, z: 1.2840984}
   m_UseSpring: 0
   m_Spring:
     spring: 0
@@ -6401,7 +6407,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: 1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 4.5217457, y: -1.4656672, z: -2.5078282}
+  m_ConnectedAnchor: {x: -0.8009238, y: 0.49120378, z: -2.3595538}
   m_UseSpring: 0
   m_Spring:
     spring: 0
@@ -6622,7 +6628,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: 1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 5.9805136, y: -1.4659528, z: -2.508365}
+  m_ConnectedAnchor: {x: 0.7990153, y: 0.49089062, z: -2.3601422}
   m_UseSpring: 0
   m_Spring:
     spring: 0
@@ -6793,7 +6799,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: 1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 6.103883, y: -1.597925, z: 0.81426156}
+  m_ConnectedAnchor: {x: 0.9343231, y: 0.34614682, z: 1.284029}
   m_UseSpring: 0
   m_Spring:
     spring: 0

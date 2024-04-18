@@ -24,7 +24,7 @@ public class DumbCarAudio : MonoBehaviour
     private AudioSource highRevSource; 
     private AudioSource lowRevSource; 
 
-    private bool started;
+    //private bool started;
 
 
     private static AudioListener _activeAudioListener;
@@ -47,25 +47,27 @@ public class DumbCarAudio : MonoBehaviour
     void Start()
     {
         car = GetComponent<DumbCar>();
+        StartSound();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        bool inRange = (ActiveAudioListener.transform.position - transform.position).sqrMagnitude < maxDistance * maxDistance;
+        //bool inRange = (ActiveAudioListener.transform.position - transform.position).sqrMagnitude < maxDistance * maxDistance;
 
-        if (started && !inRange)
-        {
-            StopSound();
-            return;
-        }
+        //if (started && !inRange)
+        //{
+        //    StopSound();
+        //    return;
+        //}
 
-        if (!started && inRange) {
-            StartSound();
-        }
+        //if (!started && inRange) {
+        //    StartSound();
+        //}
 
-        float pitch = Mathf.LerpUnclamped(lowPitchMin, lowPitchMax, (car.EngineRPM-car.MinRPM) / (car.MaxRPM - car.MinRPM));
+        float pitch = Mathf.LerpUnclamped(lowPitchMin, lowPitchMax, (car.EngineRPM-car.MinRPM) / (car.MaxRPM - car.MinRPM)); //was unclamped
         pitch = Mathf.Min(lowPitchMax, pitch);
+        
 
         highRevSource.pitch = pitch * pitchMultiplier * highPitchMultiplier;
         lowRevSource.pitch = pitch * pitchMultiplier;
@@ -96,16 +98,16 @@ public class DumbCarAudio : MonoBehaviour
     {
         highRevSource = SetUpEngineAudioSource(highRevClip);
         lowRevSource = SetUpEngineAudioSource(lowRevClip);
-        started = true;
+        //started = true;
     }
 
 
-    private void StopSound()
-    {
-        Destroy(highRevSource);
-        Destroy(lowRevSource);
-        started = false;
-    }
+    //private void StopSound()
+    //{
+    //    Destroy(highRevSource);
+    //    Destroy(lowRevSource);
+    //    started = false;
+    //}
 
     private void OnValidate()
     {

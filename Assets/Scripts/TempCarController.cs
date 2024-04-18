@@ -4,6 +4,7 @@ public class TempCarController : MonoBehaviour
 {
 
     [SerializeField] DumbCar car;
+    [SerializeField] Transform carSpawn;
     
     // Start is called before the first frame update
     void Start()
@@ -25,7 +26,14 @@ public class TempCarController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            car.Teleport(Vector3.zero, Quaternion.identity);
+            if (carSpawn)
+            {
+                car.Teleport(carSpawn.position, carSpawn.rotation);
+            }
+            else
+            {
+                car.Teleport(Vector3.zero, Quaternion.identity);
+            }
         }
     }
 }
