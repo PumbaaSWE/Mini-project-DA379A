@@ -18,9 +18,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] LayerMask whatIsGround;
     bool isGrounded;
 
-    [Header("Key Binds")]
-    [SerializeField] KeyCode jumpKey = KeyCode.Space;
-
     float horizontalInput;
     float verticalInput;
     Vector3 moveDirection;
@@ -57,7 +54,7 @@ public class PlayerMovement : MonoBehaviour
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
-        if(Input.GetKey(jumpKey) && rdyToJump && isGrounded)
+        if(Input.GetKey(KeyCode.Space) && rdyToJump && isGrounded)
         {
             rdyToJump = false;
             Jump();
