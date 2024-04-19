@@ -34,9 +34,16 @@ public class DifferentCameraFollow : MonoBehaviour
             return;
         }
 
+        //lock da mouse
+        if (Cursor.lockState != CursorLockMode.Locked)
+            Cursor.lockState = CursorLockMode.Locked;
+
         //add user input to eulerRotation
-        additionalRotation.x = Mathf.Clamp(additionalRotation.x - Input.GetAxisRaw("Mouse Y") * sensitivity, xRotationMin, xRotationMax);
-        additionalRotation.y = (additionalRotation.y + Input.GetAxisRaw("Mouse X") * sensitivity) % 360f;
+        additionalRotation.x = Mathf.Clamp(additionalRotation.x - Input.GetAxis("Mouse Y") * sensitivity, xRotationMin, xRotationMax);
+        additionalRotation.y = (additionalRotation.y + Input.GetAxis("Mouse X") * sensitivity) % 360f;
+
+        //zoom in and out with scroll yo
+        offset.z = Mathf.Min(offset.z + Input.mouseScrollDelta.y, 0f);
 
         //more dynamic camera
         //transform.rotation = toFollow.rotation;
