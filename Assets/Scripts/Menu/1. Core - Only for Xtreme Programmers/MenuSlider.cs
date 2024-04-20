@@ -19,18 +19,6 @@ public class MenuSlider : MenuSelectable
     [SerializeField]
     Image foregroundImage;
 
-    [Header("Head")]
-    [SerializeField]
-    Color headColor;
-    [SerializeField]
-    Sprite headSprite;
-    [SerializeField]
-    Vector2 headSize;
-    [SerializeField]
-    RectTransform head;
-    [SerializeField]
-    Image headImage;
-
     [Header("This")]
     [SerializeField]
     RectTransform rect;
@@ -46,17 +34,6 @@ public class MenuSlider : MenuSelectable
         if (foreground)
         {
             UpdateForegroundRect();
-        }
-
-        if (headImage)
-        {
-            headImage.color = headColor;
-            headImage.sprite = headSprite;
-        }
-
-        if (head)
-        {
-            UpdateHeadRect();
         }
 
         base.Initiate();
@@ -76,7 +53,6 @@ public class MenuSlider : MenuSelectable
     {
         SetValueFromMousePos(mousePos);
         UpdateForegroundRect();
-        UpdateHeadRect();
 
         var actions = GetComponents<SliderAction>();
 
@@ -86,32 +62,22 @@ public class MenuSlider : MenuSelectable
         base.Confirm(mousePos);
     }
 
-    [SerializeField]
-    TextMeshProUGUI text;
-    //Debug rn
-    private void FixedUpdate()
-    {
-        Vector2 value = Vector2.zero;
-
-        if (rect)
-        {
-            value = rect.position;
-        }
-
-        if(text)
-            text.text = value.ToString();
-    }
-
     private void SetValueFromMousePos(Vector3 mousePos)
     {
-        //!!!---BROKEN AF---!!!
-
         //mouse screen pos to value on slider
         if (rect)
         {
-            //works almost, idk
-            float sizeX = rect.sizeDelta.x * Screen.width / 1920f;
-            value = Mathf.InverseLerp(rect.position.x - sizeX / 2, rect.position.x + sizeX / 2, mousePos.x) * transform.localScale.x;
+            //only works if (CanvasScaler.ScreenMatchMode = Expand)
+            float scalingFactor;
+            float xScaling = Screen.width / 1920f;
+            float yScaling = Screen.height / 1080f;
+            scalingFactor = Mathf.Min(xScaling, yScaling);
+
+            float mousePosFromCenter = mousePos.x - Screen.width / 2f;
+            float rectPosFromCenter = rect.anchoredPosition.x;
+            float rectSize = (rect.sizeDelta.x / 2) * transform.localScale.x;
+            value = Mathf.InverseLerp(rectPosFromCenter - rectSize, rectPosFromCenter + rectSize, mousePosFromCenter / scalingFactor);
+            //print(mousePosFromCenter + " , " + rectPosFromCenter);
         }
 
     }
@@ -120,19 +86,8 @@ public class MenuSlider : MenuSelectable
     {
         if (rect && foreground)
         {
-            //implement correctly
-        }
-    }
-
-    private void UpdateHeadRect()
-    {
-        if (rect && head)
-        {
-            float posX = Mathf.Lerp(rect.offsetMin.x, rect.offsetMax.x, value);
-            float offsetX1 = Mathf.Lerp(0, -headSize.x, value);
-            float offsetX2 = Mathf.Lerp(headSize.x, 0, value);
-            head.offsetMin = new Vector2(posX + offsetX1, -headSize.y);
-            head.offsetMax = new Vector2(posX + offsetX2, headSize.y);
+            foreground.sizeDelta = new Vector2(rect.sizeDelta.x * value, foreground.sizeDelta.y);
+            foreground.anchoredPosition = -Vector2.right * (rect.sizeDelta.x - foreground.sizeDelta.x) / 2f;
         }
     }
 

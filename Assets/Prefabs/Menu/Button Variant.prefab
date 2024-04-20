@@ -120,18 +120,18 @@ PrefabInstance:
     - target: {fileID: 4242981177335800577, guid: 4a8c96a8a3e18e144b2c75984a714eb3,
         type: 3}
       propertyPath: effects.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4242981177335800577, guid: 4a8c96a8a3e18e144b2c75984a714eb3,
         type: 3}
       propertyPath: effects.Array.data[0]
       value: 
-      objectReference: {fileID: 1892217007}
+      objectReference: {fileID: -4460321965664745514}
     - target: {fileID: 4242981177335800577, guid: 4a8c96a8a3e18e144b2c75984a714eb3,
         type: 3}
       propertyPath: effects.Array.data[1]
       value: 
-      objectReference: {fileID: 1892217011}
+      objectReference: {fileID: 1892217007}
     - target: {fileID: 4242981177335800577, guid: 4a8c96a8a3e18e144b2c75984a714eb3,
         type: 3}
       propertyPath: effects.Array.data[2]
@@ -351,6 +351,44 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 7502959318819256218}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &-4460321965664745514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 265366468016165551}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ac68fa7561a838428391f51111b51cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0.2
+  curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 119.99999
+      outSlope: 119.99999
+      tangentMode: 0
+      weightedMode: 2
+      inWeight: 0
+      outWeight: 0.004166667
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.0046396647
+      outSlope: 0.0046396647
+      tangentMode: 0
+      weightedMode: 1
+      inWeight: 0.5083333
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  moveWhenSelected: {x: 50, y: 0}
 --- !u!114 &1892217007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -388,7 +426,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  colorWhenSelected: {r: 1, g: 0.454902, b: 0.16470589, a: 1}
+  colorWhenSelected: {r: 1, g: 0.627451, b: 0.427451, a: 1}
   textMesh: {fileID: 5454620071907009406}
 --- !u!114 &1892217011
 MonoBehaviour:
@@ -427,7 +465,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  scaleWhenSelected: 1.1
+  scaleWhenSelected: 1.25
 --- !u!114 &5454620071907009406 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2570827174329586916, guid: 4a8c96a8a3e18e144b2c75984a714eb3,

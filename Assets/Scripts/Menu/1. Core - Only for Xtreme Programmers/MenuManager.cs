@@ -34,7 +34,7 @@ public class MenuManager : MonoBehaviour
         var mouseX = Input.GetAxisRaw("Mouse X");
         var mouseY = Input.GetAxisRaw("Mouse Y");
 
-        if (mouseX + mouseY != 0f)
+        if (/*mouseX + mouseY != 0f*/true)
         {
             var foundSelect = false;
             pointerEventData.position = Input.mousePosition;
