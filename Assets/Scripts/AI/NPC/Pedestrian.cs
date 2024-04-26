@@ -13,7 +13,9 @@ public class Pedestrian : MonoBehaviour
     private Node startNode;
 
     [SerializeField]
-    private Node goal;
+    private Node[] goals;
+
+    private int goalIndex = 0;
 
     private Node currentNode = null;
 
@@ -39,6 +41,11 @@ public class Pedestrian : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
 
         currentNode = startNode;
+
+        if(goals.Length < 2)
+        {
+            Debug.LogError("NPC has less than two goals!");
+        }
     }
 
     private void Update()
@@ -73,16 +80,10 @@ public class Pedestrian : MonoBehaviour
         }
     }
 
-    public void HasReachedGoal(ConditionResult conditionResult)
+    public void CannotPass(ConditionResult conditionResult)
     {
-        if(currentNode == goal)
-        {
-            conditionResult.Result = true;
-        }
-        else
-        {
-            conditionResult.Result = false;
-        }
+        //Add logic later...
+        conditionResult.Result = false;
     }
 
     public void Wait(ActionResult actionResult)
@@ -104,7 +105,7 @@ public class Pedestrian : MonoBehaviour
 
     public void GetPath(ActionResult actionResult)
     {
-        path = graph.PathFind(currentNode.Coordinates, goal.Coordinates);
+        path = graph.PathFind(currentNode.Coordinates, goals[goalIndex].Coordinates);
 
         if(path == null || path.Count == 0)
         {
@@ -118,17 +119,35 @@ public class Pedestrian : MonoBehaviour
         actionResult.TickStatus = Task.Status.Success;
     }
 
+    public void NotReachedGoal(ConditionResult conditionResult)
+    {
+        if(currentNode == goals[goalIndex])
+        {
+            conditionResult.Result = false;
+            path = null;
+            goalIndex++;
+
+            if (goalIndex >= goals.Length)
+            {
+                goalIndex = 0;
+            }
+            return;
+        }
+
+        conditionResult.Result = true;
+    }
+
     public void MoveTowardsGoal(ActionResult actionResult)
     {
         if (nextNode == null)
         {
             nextNode = path[nextPathNodeIndex--];
             nextPosition = nextNode.GetPointOnNode(agent.radius);
-        }
 
-        if (!agent.SetDestination(nextPosition))
-        {
-            Debug.LogError("Could not set position");
+            if (!agent.SetDestination(nextPosition))
+            {
+                Debug.LogError("Could not set position");
+            }
         }
 
         actionResult.TickStatus = Task.Status.Success;
