@@ -22,7 +22,12 @@ public class PathBlocker : MonoBehaviour
     [SerializeField]
     private Color stopColor;
 
+    private bool allowsMove = true;
+
     private Player_Actions actions;
+
+    [SerializeField]
+    private bool allowsMoveOnStart = true;
 
     // Start is called before the first frame update
     void Start()
@@ -33,7 +38,14 @@ public class PathBlocker : MonoBehaviour
 
         walkableCondition = from.GetWalkableConditions()[adjacencyIndex];
 
-        SetToMovable(new InputAction.CallbackContext());
+        if(allowsMoveOnStart)
+        {
+            SetToMovable(new InputAction.CallbackContext());
+        }
+        else
+        {
+            SetToStopped(new InputAction.CallbackContext());
+        }
 
         actions = new();
 
@@ -53,11 +65,25 @@ public class PathBlocker : MonoBehaviour
     {
         materialInstance.color = moveColor;
         walkableCondition.Result = true;
+        allowsMove = true;
     }
 
     public void SetToStopped(InputAction.CallbackContext context)
     {
         materialInstance.color = stopColor;
         walkableCondition.Result = false;
+        allowsMove = false;
+    }
+
+    public void SwitchState()
+    {
+        if(allowsMove)
+        {
+            SetToStopped(new InputAction.CallbackContext());
+        }
+        else
+        {
+            SetToMovable(new InputAction.CallbackContext());
+        }
     }
 }

@@ -20,8 +20,6 @@ public class Node : MonoBehaviour, IEquatable<Node>
 
     public Node Previous { get; set; }
 
-    // Adjacent nodes
-
     [SerializeField]
     private Node[] nodesToMakeAdjacent;
 
