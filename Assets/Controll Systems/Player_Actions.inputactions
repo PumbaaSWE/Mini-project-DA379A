@@ -1,0 +1,54 @@
+{
+    "name": "Player_Actions",
+    "maps": [
+        {
+            "name": "Player1",
+            "id": "96f19bab-f769-4d5a-a825-d45c7f162985",
+            "actions": [
+                {
+                    "name": "Test_Action",
+                    "type": "Button",
+                    "id": "7f322001-fbe3-45b8-ae09-fd051588b1ed",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Anti_Test_Action",
+                    "type": "Button",
+                    "id": "10fa3f8a-07d7-4028-9822-fedaa99e0e3e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "cc7fe957-e48a-4a86-a89f-718198c428e2",
+                    "path": "<Keyboard>/t",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Test_Action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3ec4ca95-caae-44b8-acec-e08908d534ac",
+                    "path": "<Keyboard>/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Anti_Test_Action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

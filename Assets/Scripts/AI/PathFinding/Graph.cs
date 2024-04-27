@@ -8,16 +8,9 @@ public class Graph : MonoBehaviour
     [SerializeField]
     private NodeColumn[] nodeColumns;
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         InitializeNodes();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     private void InitializeNodes()

@@ -26,6 +26,8 @@ public class Pedestrian : MonoBehaviour
 
     private int nextPathNodeIndex;
 
+    private ConditionResult walkableCondition;
+
     [Range(0f, 100f)]
     [SerializeField]
     private float timeBetweenTicks;
@@ -34,6 +36,8 @@ public class Pedestrian : MonoBehaviour
 
     [SerializeField]
     private Graph graph;
+
+    private bool hasBeenStopped = false;
 
     // Start is called before the first frame update
     void Start()
@@ -144,10 +148,30 @@ public class Pedestrian : MonoBehaviour
             nextNode = path[nextPathNodeIndex--];
             nextPosition = nextNode.GetPointOnNode(agent.radius);
 
+            int adjacencyIndex = currentNode.GetAdjacent().IndexOf(nextNode);
+            walkableCondition = currentNode.GetWalkableConditions()[adjacencyIndex];
+
             if (!agent.SetDestination(nextPosition))
             {
                 Debug.LogError("Could not set position");
             }
+        }
+
+        if(walkableCondition.Result == false && !hasBeenStopped)
+        {
+            if (!agent.SetDestination(currentNode.GetPointOnNode(agent.radius)))
+            {
+                Debug.LogError("Could not set position");
+            }
+            hasBeenStopped = true;
+        }
+        else if (walkableCondition.Result == true && hasBeenStopped)
+        {
+            if (!agent.SetDestination(nextPosition))
+            {
+                Debug.LogError("Could not set position");
+            }
+            hasBeenStopped = false;
         }
 
         actionResult.TickStatus = Task.Status.Success;

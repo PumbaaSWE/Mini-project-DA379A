@@ -10,6 +10,8 @@ public class Node : MonoBehaviour, IEquatable<Node>
 
     private readonly List<Node> adjacentNodes = new();
 
+    private readonly List<ConditionResult> walkableConditions = new();
+
     public int G { get; set; } = 0;
 
     public int H { get; set; } = 0;
@@ -46,16 +48,8 @@ public class Node : MonoBehaviour, IEquatable<Node>
     void Awake()
     {
         materialInstance = GetComponent<MeshRenderer>().material;
-    }
 
-    void Start()
-    {
         AddAdjacentNodes();
-
-        //if(adjacentNodes.Count <= 0)
-        //{
-        //    Debug.LogWarning("A node has no adjacent nodes!");
-        //}
     }
 
     public void SetCoordinates(Vec2Int coordinates)
@@ -71,6 +65,12 @@ public class Node : MonoBehaviour, IEquatable<Node>
     public void MakeAdjacentTo(Node other)
     {
         adjacentNodes.Add(other);
+
+        ConditionResult conditionResult = new()
+        {
+            Result = true
+        };
+        walkableConditions.Add(conditionResult);
     }
 
     public void RemoveAdjacencyTo(Node other)
@@ -86,6 +86,11 @@ public class Node : MonoBehaviour, IEquatable<Node>
     public List<Node> GetAdjacent()
     {
         return adjacentNodes;
+    }
+
+    public List<ConditionResult> GetWalkableConditions()
+    {
+        return walkableConditions;
     }
 
     private void AddAdjacentNodes()
