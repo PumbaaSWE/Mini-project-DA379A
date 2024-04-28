@@ -117,12 +117,19 @@ public class Pedestrian : MonoBehaviour, IThrowable
 
     public void CannotPass(ConditionResult conditionResult)
     {
-        //Add logic later...
-        conditionResult.Result = false;
+        if(hasBeenStopped && walkableCondition.Result == false)
+        {
+            conditionResult.Result = true;
+        }
+        else
+        {
+            conditionResult.Result = false;
+        }       
     }
 
     public void Wait(ActionResult actionResult)
     {
+        //Debug.Log("Waited");
         actionResult.TickStatus = Task.Status.Success;
     }
 
