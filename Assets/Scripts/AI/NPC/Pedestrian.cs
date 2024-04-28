@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Pedestrian : MonoBehaviour
+public class Pedestrian : MonoBehaviour, IThrowable
 {
     [SerializeField]
     private Task behaviourTree;
@@ -39,10 +39,21 @@ public class Pedestrian : MonoBehaviour
 
     private bool hasBeenStopped = false;
 
+    private int groundLayer;
+
+    [SerializeField]
+    private string groundLayerName = "WhatIsGround";
+
+    private Rigidbody rb;
+
+    private bool isPickedUp = false;
+
     // Start is called before the first frame update
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+
+        rb = GetComponent<Rigidbody>();
 
         currentNode = startNode;
 
@@ -50,6 +61,8 @@ public class Pedestrian : MonoBehaviour
         {
             Debug.LogError("NPC has less than two goals!");
         }
+
+        groundLayer = LayerMask.NameToLayer(groundLayerName);
     }
 
     private void Update()
@@ -82,6 +95,24 @@ public class Pedestrian : MonoBehaviour
                 nextNode = null;
             }
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(isPickedUp)
+        {
+            if (collision.gameObject.layer == groundLayer)
+            {
+                rb.velocity = Vector3.zero;
+                rb.angularVelocity = Vector3.zero;
+                rb.useGravity = false;
+
+                agent.enabled = true;
+                SetDestination(nextPosition);
+
+                //Debug.Log("Hit ground");
+            }
+        }       
     }
 
     public void CannotPass(ConditionResult conditionResult)
@@ -151,29 +182,39 @@ public class Pedestrian : MonoBehaviour
             int adjacencyIndex = currentNode.GetAdjacent().IndexOf(nextNode);
             walkableCondition = currentNode.GetWalkableConditions()[adjacencyIndex];
 
-            if (!agent.SetDestination(nextPosition))
-            {
-                Debug.LogError("Could not set position");
-            }
+            SetDestination(nextPosition);
         }
 
         if(walkableCondition.Result == false && !hasBeenStopped)
         {
-            if (!agent.SetDestination(currentNode.GetPointOnNode(agent.radius)))
-            {
-                Debug.LogError("Could not set position");
-            }
+            SetDestination(currentNode.GetPointOnNode(agent.radius));
             hasBeenStopped = true;
         }
         else if (walkableCondition.Result == true && hasBeenStopped)
         {
-            if (!agent.SetDestination(nextPosition))
-            {
-                Debug.LogError("Could not set position");
-            }
+            SetDestination(nextPosition);
             hasBeenStopped = false;
         }
 
         actionResult.TickStatus = Task.Status.Success;
+    }
+
+    private void SetDestination(Vector3 target)
+    {
+        if (!agent.SetDestination(target))
+        {
+            Debug.LogError("Could not set position");
+        }
+    }
+
+    public void PerformGrabLogic()
+    {
+        isPickedUp = true;
+    }
+
+    public void PerformThrowLogic()
+    {
+        agent.enabled = false;
+        rb.useGravity = true;
     }
 }

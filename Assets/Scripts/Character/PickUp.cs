@@ -10,12 +10,12 @@ public class PickUp : MonoBehaviour
     public float pickUpRange = 5f;
     private GameObject heldObj;
     private Rigidbody heldObjRb;
+    private IThrowable heldObjectThrowable;
     private bool canDrop = true;
-    private int LayerNumber;
 
     void Start()
     {
-        LayerNumber = LayerMask.NameToLayer("HoldLayer");
+        
     }
     void Update()
     {
@@ -23,11 +23,10 @@ public class PickUp : MonoBehaviour
         {
             if (heldObj == null)
             {
-                RaycastHit hit;
-                if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, pickUpRange))
+                if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out RaycastHit hit, pickUpRange))
                 {
                     //make sure pickup tag is attached
-                    if (hit.transform.gameObject.tag == "canPickUp")
+                    if (hit.transform.gameObject.CompareTag("canPickUp"))
                     {
                         //pass in object hit into the PickUpObject function
                         PickUpObject(hit.transform.gameObject);
@@ -55,21 +54,24 @@ public class PickUp : MonoBehaviour
     }
     void PickUpObject(GameObject pickUpObj)
     {
-        if (pickUpObj.GetComponent<Rigidbody>())
+        Rigidbody rb = pickUpObj.GetComponent<Rigidbody>();
+        if (rb)
         {
             heldObj = pickUpObj;
-            heldObjRb = pickUpObj.GetComponent<Rigidbody>();
+            heldObjRb = rb;
             heldObjRb.isKinematic = true;
             heldObjRb.transform.parent = holdPos.transform;
-            heldObj.layer = LayerNumber;
 
             Physics.IgnoreCollision(heldObj.GetComponent<Collider>(), player.GetComponent<Collider>(), true);
+
+            heldObjectThrowable = pickUpObj.GetComponent<IThrowable>();
+
+            heldObjectThrowable?.PerformGrabLogic();
         }
     }
     void DropObject()
     {
         Physics.IgnoreCollision(heldObj.GetComponent<Collider>(), player.GetComponent<Collider>(), false);
-        heldObj.layer = 0;
         heldObjRb.isKinematic = false;
         heldObj.transform.parent = null;
         heldObj = null;
@@ -82,11 +84,12 @@ public class PickUp : MonoBehaviour
     void ThrowObject()
     {
         Physics.IgnoreCollision(heldObj.GetComponent<Collider>(), player.GetComponent<Collider>(), false);
-        heldObj.layer = 0;
         heldObjRb.isKinematic = false;
         heldObj.transform.parent = null;
         heldObjRb.AddForce(transform.forward * throwForce);
         heldObj = null;
+
+        heldObjectThrowable?.PerformThrowLogic();
     }
     void StopClipping() //function only called when dropping/throwing
     {

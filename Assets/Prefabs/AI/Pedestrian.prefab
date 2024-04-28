@@ -451,7 +451,7 @@ GameObject:
   - component: {fileID: 207342363625029870}
   m_Layer: 6
   m_Name: Pedestrian
-  m_TagString: Untagged
+  m_TagString: canPickUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -530,7 +530,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 207342363625029873}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 5f0ba41556ec3d64286985cb06db6163, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5000001
