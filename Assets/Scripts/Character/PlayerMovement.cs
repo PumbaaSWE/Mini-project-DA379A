@@ -23,6 +23,10 @@ public class PlayerMovement : MonoBehaviour
     Vector3 moveDirection;
     Rigidbody rb;
 
+    [SerializeField]
+    Animator animator;
+    bool jump;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -47,6 +51,7 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         MovePlayer();
+        SetAnimation();
     }
 
     private void MyInput()
@@ -68,12 +73,14 @@ public class PlayerMovement : MonoBehaviour
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
         // On ground
-        if(isGrounded)
+        if (isGrounded)
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+        
 
         // In air
         else if(!isGrounded)
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
+
     }
 
     private void SpeedControl()
@@ -98,5 +105,27 @@ public class PlayerMovement : MonoBehaviour
     private void ResetJump()
     {
         rdyToJump = true;
+    }
+
+    private void SetAnimation()
+    {
+        if(horizontalInput == 0 && verticalInput == 0)
+        {
+            animator.SetBool("Walking", false);
+        }
+        else
+        {
+            animator.SetBool("Walking", true);
+        }
+
+        if (!isGrounded)
+        {
+            animator.SetBool("Jumping", true);
+        }
+        else if(isGrounded)
+        {
+            animator.SetBool("Jumping", false);
+        }
+
     }
 }

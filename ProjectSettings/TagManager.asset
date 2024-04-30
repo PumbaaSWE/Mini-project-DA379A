@@ -10,11 +10,16 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
+<<<<<<< Updated upstream
   - Pedestrian
   - Player
+=======
+  - Box
+  - HoldLayer
+>>>>>>> Stashed changes
   - 
   - 
   - WhatIsGround
