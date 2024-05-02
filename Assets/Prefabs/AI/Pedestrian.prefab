@@ -30,6 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 207342362633212339}
+  - {fileID: 8829699879430655097}
   - {fileID: 207342362006704505}
   - {fileID: 207342363466480055}
   m_Father: {fileID: 207342363625029864}
@@ -49,6 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   children:
   - {fileID: 207342362633212336}
+  - {fileID: 4289267492799631556}
   - {fileID: 207342362006704502}
   - {fileID: 1539604217180758267}
 --- !u!1 &207342361924320802
@@ -142,7 +144,7 @@ Transform:
   - {fileID: 207342363552726694}
   - {fileID: 207342363484270495}
   m_Father: {fileID: 207342361677766093}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &207342362006704502
 MonoBehaviour:
@@ -299,7 +301,7 @@ Transform:
   - {fileID: 3910929903514543575}
   - {fileID: 5198695058513968627}
   m_Father: {fileID: 207342361677766093}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1539604217180758267
 MonoBehaviour:
@@ -594,7 +596,57 @@ MonoBehaviour:
   graph: {fileID: 0}
   groundLayerName: WhatIsGround
   projectileLayerName: Projectile
+  carLayerName: Car
   knockOutTime: 3
+--- !u!1 &2327221740961701291
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8829699879430655097}
+  - component: {fileID: 4289267492799631556}
+  m_Layer: 7
+  m_Name: Flee Task
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8829699879430655097
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2327221740961701291}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3497586325451707610}
+  - {fileID: 7786161204469742014}
+  m_Father: {fileID: 207342361677766093}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4289267492799631556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2327221740961701291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1317b31a4269b5646947fa44de97a589, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  children:
+  - {fileID: 8003562555771341096}
+  - {fileID: 4741959180825230205}
 --- !u!1 &3131785398611224915
 GameObject:
   m_ObjectHideFlags: 0
@@ -654,6 +706,65 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!1 &6053814005230740964
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3497586325451707610}
+  - component: {fileID: 8003562555771341096}
+  m_Layer: 7
+  m_Name: Afraid Condition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3497586325451707610
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6053814005230740964}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8829699879430655097}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8003562555771341096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6053814005230740964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaf0d0546993d8f4d8cd821844d841e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  conditionEvaluation:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 207342363625029870}
+        m_TargetAssemblyTypeName: Pedestrian, Assembly-CSharp
+        m_MethodName: HasBeenScared
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6439312512472604425
 GameObject:
   m_ObjectHideFlags: 0
@@ -704,6 +815,65 @@ MonoBehaviour:
       - m_Target: {fileID: 207342363625029870}
         m_TargetAssemblyTypeName: Pedestrian, Assembly-CSharp
         m_MethodName: NotReachedGoal
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!1 &6583723094445347275
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7786161204469742014}
+  - component: {fileID: 4741959180825230205}
+  m_Layer: 7
+  m_Name: Flee Action
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7786161204469742014
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6583723094445347275}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8829699879430655097}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4741959180825230205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6583723094445347275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a90ab85f911e6cf46902fa04b10f8028, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onTick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 207342363625029870}
+        m_TargetAssemblyTypeName: Pedestrian, Assembly-CSharp
+        m_MethodName: Flee
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

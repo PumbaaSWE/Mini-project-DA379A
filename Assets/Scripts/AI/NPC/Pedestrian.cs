@@ -66,6 +66,18 @@ public class Pedestrian : MonoBehaviour, IThrowable
     [SerializeField]
     private float knockOutTime = 3f;
 
+    private bool isAfraid = false;
+
+    private Vector3 escapeDirection;
+
+    [SerializeField]
+    private float fleeStrength = 10f;
+
+    private float fleeTime = 0;
+
+    [SerializeField]
+    private float fleeingDuration = 2f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -114,6 +126,20 @@ public class Pedestrian : MonoBehaviour, IThrowable
                 currentNode = nextNode;
                 nextNode = null;
             }
+        }
+
+        if(other.gameObject.layer == carLayer)
+        {
+            isAfraid = true;
+            escapeDirection = (transform.position - other.transform.position).normalized;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.gameObject.layer == carLayer)
+        {
+            fleeTime = fleeingDuration;
         }
     }
 
@@ -172,6 +198,29 @@ public class Pedestrian : MonoBehaviour, IThrowable
             {
                 knockedDown = false;
                 ResetAgent();
+            }
+        }
+
+        actionResult.TickStatus = Task.Status.Success;
+    }
+
+    public void HasBeenScared(ConditionResult conditionResult)
+    {
+        conditionResult.Result = isAfraid;
+    }
+
+    public void Flee(ActionResult actionResult)
+    {
+        SetDestination(transform.position + escapeDirection * fleeStrength);
+
+        if(fleeTime > 0)
+        {
+            fleeTime -= Time.deltaTime;
+
+            if(fleeTime <= 0)
+            {
+                isAfraid = false;
+                SetDestination(nextPosition);
             }
         }
 
