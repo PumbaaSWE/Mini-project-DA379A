@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 207342361677766093}
   - component: {fileID: 207342361677766090}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: BT_Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61,7 +61,7 @@ GameObject:
   m_Component:
   - component: {fileID: 207342361924320803}
   - component: {fileID: 207342361924320800}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Cannot Pass Condition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,7 +120,7 @@ GameObject:
   m_Component:
   - component: {fileID: 207342362006704505}
   - component: {fileID: 207342362006704502}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Find Path Task
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -169,7 +169,7 @@ GameObject:
   m_Component:
   - component: {fileID: 207342362633212339}
   - component: {fileID: 207342362633212336}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Wait Task
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -218,7 +218,7 @@ GameObject:
   m_Component:
   - component: {fileID: 207342363031901418}
   - component: {fileID: 207342363031901419}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Wait Action
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -277,7 +277,7 @@ GameObject:
   m_Component:
   - component: {fileID: 207342363466480055}
   - component: {fileID: 1539604217180758267}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Move Task
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -326,7 +326,7 @@ GameObject:
   m_Component:
   - component: {fileID: 207342363484270495}
   - component: {fileID: 207342363484270492}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Get Path Action
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -385,7 +385,7 @@ GameObject:
   m_Component:
   - component: {fileID: 207342363552726694}
   - component: {fileID: 207342363552726695}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Has No Path Condition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -449,7 +449,7 @@ GameObject:
   - component: {fileID: 207342363625029868}
   - component: {fileID: 207342363625029871}
   - component: {fileID: 207342363625029870}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Pedestrian
   m_TagString: canPickUp
   m_Icon: {fileID: 0}
@@ -592,6 +592,7 @@ MonoBehaviour:
   goals: []
   timeBetweenTicks: 0
   graph: {fileID: 0}
+  groundLayerName: WhatIsGround
 --- !u!1 &3131785398611224915
 GameObject:
   m_ObjectHideFlags: 0
@@ -602,7 +603,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5198695058513968627}
   - component: {fileID: 2449671231768945398}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Move Action
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -661,7 +662,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3910929903514543575}
   - component: {fileID: 2387744406988654230}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Not Reahced Goal Condition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -721,7 +722,7 @@ GameObject:
   - component: {fileID: 4819328439231568726}
   - component: {fileID: 1073188385915014726}
   - component: {fileID: 7505732395458649824}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Direction Sign
   m_TagString: Untagged
   m_Icon: {fileID: 0}
