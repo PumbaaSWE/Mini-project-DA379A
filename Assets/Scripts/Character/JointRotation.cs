@@ -10,6 +10,6 @@ public class JointRotation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.rotation = Quaternion.EulerRotation(new Vector3(0, 0, cameraRot.rotation.z));
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, cameraRot.rotation.z));
     }
 }
