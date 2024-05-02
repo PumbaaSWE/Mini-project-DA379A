@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8442223822748644022}
   - component: {fileID: 8442223822748644020}
   - component: {fileID: 8442223822748644023}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: wheel3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 8442223822797208329}
   - component: {fileID: 8442223822797208320}
   - component: {fileID: 7305290563310042524}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: TestDumbCar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -306,6 +306,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   car: {fileID: 0}
+  carSpawn: {fileID: 0}
 --- !u!1 &8442223822804015888
 GameObject:
   m_ObjectHideFlags: 0
@@ -316,7 +317,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8442223822804015894}
   - component: {fileID: 8442223822804015889}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: FrontRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -383,7 +384,7 @@ GameObject:
   - component: {fileID: 8442223823176978921}
   - component: {fileID: 8442223823176978927}
   - component: {fileID: 8442223823176978926}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: wheel3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -466,7 +467,7 @@ GameObject:
   - component: {fileID: 8442223823290747210}
   - component: {fileID: 8442223823290747208}
   - component: {fileID: 8442223823290747211}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -547,7 +548,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8442223823318376933}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: CenterOfMass
   m_TagString: Untagged
   m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
@@ -579,7 +580,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8442223823361729120}
   - component: {fileID: 8442223823361729123}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: RearRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -647,7 +648,7 @@ GameObject:
   - component: {fileID: 8442223823575342091}
   - component: {fileID: 8442223823575342089}
   - component: {fileID: 8442223823575342088}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: wheel3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -730,7 +731,7 @@ GameObject:
   - component: {fileID: 8442223823960687583}
   - component: {fileID: 8442223823960687581}
   - component: {fileID: 8442223823960687580}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: track
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -879,7 +880,7 @@ GameObject:
   - component: {fileID: 8442223824229844531}
   - component: {fileID: 8442223824229844529}
   - component: {fileID: 8442223824229844528}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: ParticleSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5691,7 +5692,7 @@ GameObject:
   - component: {fileID: 8442223824437633945}
   - component: {fileID: 8442223824437633951}
   - component: {fileID: 8442223824437633950}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: track
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5839,7 +5840,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8442223824585852020}
   - component: {fileID: 8442223824585852023}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: RearLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5907,7 +5908,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8442223824595655400}
   - component: {fileID: 8442223824595655403}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: FrontLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5974,7 +5975,7 @@ GameObject:
   - component: {fileID: 8442223824804074273}
   - component: {fileID: 8442223824804074279}
   - component: {fileID: 8442223824804074278}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: wheel3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6133,6 +6134,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: acar2
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 610a814c22992ea4887be6f0bfe5c892,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 610a814c22992ea4887be6f0bfe5c892,
         type: 3}

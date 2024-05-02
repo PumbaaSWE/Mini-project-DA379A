@@ -49,6 +49,11 @@ public class Pedestrian : MonoBehaviour, IThrowable
     [SerializeField]
     private string projectileLayerName = "Projectile";
 
+    private int carLayer;
+
+    [SerializeField]
+    private string carLayerName = "Car";
+
     private Rigidbody rb;
 
     private bool isPickedUp = false;
@@ -77,6 +82,7 @@ public class Pedestrian : MonoBehaviour, IThrowable
 
         groundLayer = LayerMask.NameToLayer(groundLayerName);
         projectileLayer = LayerMask.NameToLayer(projectileLayerName);
+        carLayer = LayerMask.NameToLayer(carLayerName);
     }
 
     private void Update()
@@ -117,6 +123,7 @@ public class Pedestrian : MonoBehaviour, IThrowable
         {
             if (collision.gameObject.layer == groundLayer)
             {
+                isPickedUp = false;
                 ResetAgent();
             }
         } 
@@ -125,10 +132,21 @@ public class Pedestrian : MonoBehaviour, IThrowable
         {
             KnockDownAgent();
         }
+
+        if(collision.gameObject.layer == carLayer)
+        {
+            KnockDownAgent();
+        }
     }
 
     public void CannotContinue(ConditionResult conditionResult)
     {
+        if (isPickedUp)
+        {
+            conditionResult.Result = true;
+            return;
+        }
+
         if (knockedDown)
         {
             conditionResult.Result = true;
@@ -208,6 +226,10 @@ public class Pedestrian : MonoBehaviour, IThrowable
 
     public void MoveTowardsGoal(ActionResult actionResult)
     {
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        rb.useGravity = false;
+
         if (nextNode == null)
         {
             nextNode = path[nextPathNodeIndex--];

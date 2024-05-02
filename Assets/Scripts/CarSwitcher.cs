@@ -9,6 +9,9 @@ public class CarSwitcher : MonoBehaviour
     [SerializeField] CameraFollow cameraFollow;
     [SerializeField] DumbCarUI ui;
 
+    [SerializeField]
+    private Transform carSpawn;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,7 +30,16 @@ public class CarSwitcher : MonoBehaviour
     void SwapCar()
     {
         if(currentCar) Destroy(currentCar.gameObject);
-        currentCar = Instantiate(carPrefabs[car], Vector3.zero, Quaternion.identity);
+        
+        if(carSpawn != null)
+        {
+            currentCar = Instantiate(carPrefabs[car], carSpawn.position, Quaternion.identity);
+        }
+        else
+        {
+            currentCar = Instantiate(carPrefabs[car], Vector3.zero, Quaternion.identity);
+        }
+        
         cameraFollow.ToFollow = currentCar.transform;
         if(ui)ui.car = currentCar;
         car = (car + 1) % carPrefabs.Length;
