@@ -44,9 +44,22 @@ public class Pedestrian : MonoBehaviour, IThrowable
     [SerializeField]
     private string groundLayerName = "WhatIsGround";
 
+    private int projectileLayer;
+
+    [SerializeField]
+    private string projectileLayerName = "Projectile";
+
     private Rigidbody rb;
 
     private bool isPickedUp = false;
+
+    private bool knockedDown = false;
+
+    private float knockedDownTimer = 0;
+
+    [Range(0f, 10f)]
+    [SerializeField]
+    private float knockOutTime = 3f;
 
     // Start is called before the first frame update
     void Start()
@@ -63,6 +76,7 @@ public class Pedestrian : MonoBehaviour, IThrowable
         }
 
         groundLayer = LayerMask.NameToLayer(groundLayerName);
+        projectileLayer = LayerMask.NameToLayer(projectileLayerName);
     }
 
     private void Update()
@@ -103,33 +117,46 @@ public class Pedestrian : MonoBehaviour, IThrowable
         {
             if (collision.gameObject.layer == groundLayer)
             {
-                rb.velocity = Vector3.zero;
-                rb.angularVelocity = Vector3.zero;
-                rb.useGravity = false;
-
-                agent.enabled = true;
-                SetDestination(nextPosition);
-
-                //Debug.Log("Hit ground");
+                ResetAgent();
             }
-        }       
+        } 
+        
+        if(collision.gameObject.layer == projectileLayer)
+        {
+            KnockDownAgent();
+        }
     }
 
-    public void CannotPass(ConditionResult conditionResult)
+    public void CannotContinue(ConditionResult conditionResult)
     {
+        if (knockedDown)
+        {
+            conditionResult.Result = true;
+            return;
+        }
+
         if(hasBeenStopped && walkableCondition.Result == false)
         {
             conditionResult.Result = true;
+            return;
         }
-        else
-        {
-            conditionResult.Result = false;
-        }       
+
+        conditionResult.Result = false;
     }
 
     public void Wait(ActionResult actionResult)
     {
-        //Debug.Log("Waited");
+        if (knockedDown)
+        {
+            knockedDownTimer -= Time.deltaTime;
+
+            if(knockedDownTimer <= 0)
+            {
+                knockedDown = false;
+                ResetAgent();
+            }
+        }
+
         actionResult.TickStatus = Task.Status.Success;
     }
 
@@ -212,6 +239,24 @@ public class Pedestrian : MonoBehaviour, IThrowable
         {
             Debug.LogError("Could not set position");
         }
+    }
+
+    private void ResetAgent()
+    {
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        rb.useGravity = false;
+
+        agent.enabled = true;
+        SetDestination(nextPosition);
+    }
+
+    private void KnockDownAgent()
+    {
+        agent.enabled = false;
+        rb.useGravity = true;
+        knockedDown = true;
+        knockedDownTimer = knockOutTime;
     }
 
     public void PerformGrabLogic()

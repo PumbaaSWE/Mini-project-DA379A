@@ -100,7 +100,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 207342363625029870}
         m_TargetAssemblyTypeName: Pedestrian, Assembly-CSharp
-        m_MethodName: CannotPass
+        m_MethodName: CannotContinue
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -593,6 +593,8 @@ MonoBehaviour:
   timeBetweenTicks: 0
   graph: {fileID: 0}
   groundLayerName: WhatIsGround
+  projectileLayerName: Projectile
+  knockOutTime: 3
 --- !u!1 &3131785398611224915
 GameObject:
   m_ObjectHideFlags: 0
