@@ -1,10 +1,11 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
-/// Singleton instance that keeps track of time.
-/// Because this is a MonoBehaviour script, it will be attached to its own GameObject upon instantiation.
-/// Use Instance() for EZ access.
+/// 
+/// <para>  Singleton instance that keeps track of time.                                                </para>
+/// <para>  Because this is a MonoBehaviour script, it's attached to a GameObject upon instantiation.   </para>
+/// <para>  Use Instance() for EZ access.                                                               </para>
+/// 
 /// </summary>
 public class Timer : MonoBehaviour
 {

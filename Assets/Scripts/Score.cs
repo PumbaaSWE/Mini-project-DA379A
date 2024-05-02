@@ -1,8 +1,10 @@
 using UnityEngine;
 
 /// <summary>
-/// Singleton instance that keeps track of score.
-/// Use Instance() for EZ access.
+/// 
+/// <para>  Singleton instance that keeps track of score.   </para>
+/// <para>  Use Instance() for EZ access.                   </para>
+/// 
 /// </summary>
 public class Score
 {
