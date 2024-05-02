@@ -363,7 +363,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ac68fa7561a838428391f51111b51cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.2
+  speed: 0.1
   curve:
     serializedVersion: 2
     m_Curve:
@@ -388,7 +388,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  moveWhenSelected: {x: 50, y: 0}
+  moveWhenSelected: {x: 25, y: 0}
 --- !u!114 &1892217007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -401,7 +401,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3211d36facd46ee46aee6ad99f95ea40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.2
+  speed: 0.1
   curve:
     serializedVersion: 2
     m_Curve:
@@ -440,7 +440,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 946f5b3c193fe5c4cacf87a088498f4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.2
+  speed: 0.1
   curve:
     serializedVersion: 2
     m_Curve:
@@ -465,7 +465,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  scaleWhenSelected: 1.25
+  scaleWhenSelected: 1.125
 --- !u!114 &5454620071907009406 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2570827174329586916, guid: 4a8c96a8a3e18e144b2c75984a714eb3,
