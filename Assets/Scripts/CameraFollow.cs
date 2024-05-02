@@ -5,7 +5,7 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] float smoothPositionTime = .2f;
     //[SerializeField] float camSmoothSpeed = .2f;
     //[SerializeField] float followForce = 1000;
-    [SerializeField] Transform toFollow;
+    public Transform toFollow;
     [SerializeField] Vector3 offset = new Vector3(0, 5, -20);
 
     public Transform ToFollow { get { return toFollow; } set { toFollow = value; } }

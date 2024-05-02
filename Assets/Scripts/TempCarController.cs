@@ -5,6 +5,7 @@ public class TempCarController : MonoBehaviour
 
     [SerializeField] DumbCar car;
     [SerializeField] Transform carSpawn;
+    public bool controling;
     
     // Start is called before the first frame update
     void Start()
@@ -20,6 +21,8 @@ public class TempCarController : MonoBehaviour
     //move this out when we have character controller
     void Update()
     {
+        if (!controling) return;
+
         car.SetSteerInput(Input.GetAxis("Horizontal"));
         car.SetThrottleInput(Input.GetAxis("Vertical"));
         car.SetRevInput(Input.GetKey(KeyCode.LeftShift) ? 1 : 0);

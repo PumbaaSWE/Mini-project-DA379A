@@ -13,10 +13,6 @@ public class PickUp : MonoBehaviour
     private IThrowable heldObjectThrowable;
     private bool canDrop = true;
 
-    void Start()
-    {
-        
-    }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
