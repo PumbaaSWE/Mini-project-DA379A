@@ -1846,6 +1846,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1974994426406224376, guid: eeb2cd07e6a9e1848bb45a0ab992a53f,
+        type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1974994426693319032, guid: eeb2cd07e6a9e1848bb45a0ab992a53f,
         type: 3}
       propertyPath: m_Name
@@ -1905,6 +1910,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1974994427467730990, guid: eeb2cd07e6a9e1848bb45a0ab992a53f,
+        type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1974994427649798150, guid: eeb2cd07e6a9e1848bb45a0ab992a53f,
+        type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1974994427684586199, guid: eeb2cd07e6a9e1848bb45a0ab992a53f,
+        type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1974994427749181801, guid: eeb2cd07e6a9e1848bb45a0ab992a53f,
+        type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1974994428055412959, guid: eeb2cd07e6a9e1848bb45a0ab992a53f,
+        type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1974994428392699473, guid: eeb2cd07e6a9e1848bb45a0ab992a53f,
+        type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4596273820010844058, guid: eeb2cd07e6a9e1848bb45a0ab992a53f,
         type: 3}

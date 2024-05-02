@@ -573,7 +573,7 @@ NavMeshAgent:
   m_AutoRepath: 1
   m_Height: 2
   m_BaseOffset: 1
-  m_WalkableMask: 1
+  m_WalkableMask: 9
   m_ObstacleAvoidanceType: 4
 --- !u!114 &207342363625029870
 MonoBehaviour:
