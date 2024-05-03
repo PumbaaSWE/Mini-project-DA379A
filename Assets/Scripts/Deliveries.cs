@@ -22,7 +22,7 @@ public class Deliveries
         return instance;
     }
 
-    private const int deliveriesToComplete = 1;
+    private const int deliveriesToComplete = 2;
 
     private List<Recipient> waitingRecipients;
     private Recipient currentRecipient;
@@ -119,6 +119,6 @@ public class Deliveries
 
     public int Waiting()
     {
-        return waitingRecipients.Count;
+        return waitingRecipients.Count + (currentRecipient ? 1 : 0);
     }
 }
