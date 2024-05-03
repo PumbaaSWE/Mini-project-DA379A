@@ -2964,6 +2964,7 @@ MonoBehaviour:
   - {fileID: 2815057473518706473, guid: ef33a5c7a101c8a4aa7181fede34f6d0, type: 3}
   cameraFollow: {fileID: 963194229}
   ui: {fileID: 198946772}
+  carSpawn: {fileID: 0}
 --- !u!4 &764861435
 Transform:
   m_ObjectHideFlags: 0
