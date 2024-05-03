@@ -37,11 +37,12 @@ public class Recipient : MonoBehaviour
             return;
         }
 
-        Destroy(collision.gameObject);
-        deliveries.CompleteDelivery(this);
-
         print(name + ": Thank you!");
         print("Number of completed deliveries: " + deliveries.Completed() + " / " + deliveries.Needed());
         print("Number of delivery requests: " + deliveries.Waiting());
+
+        Destroy(collision.gameObject);
+        deliveries.CompleteDelivery(this);
+        enabled = false;
     }
 }
