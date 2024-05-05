@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 public class Graph : MonoBehaviour
@@ -8,8 +9,16 @@ public class Graph : MonoBehaviour
     [SerializeField]
     private NodeColumn[] nodeColumns;
 
+    [SerializeField]
+    private bool autoCreate = false;
+
     void Awake()
     {
+        if(autoCreate)
+        {
+            AutoCreateGraph();
+        }
+
         InitializeNodes();
     }
 
@@ -22,8 +31,47 @@ public class Graph : MonoBehaviour
                 if (nodeColumns[x].Row[y] != null)
                 {
                     nodeColumns[x].Row[y].SetCoordinates(new Vec2Int(x, y));
+                }
+            }
+        }
+    }
 
-                    //Debug.Log("Set coordinates of: " + x + ", " + y);
+    private void AutoCreateGraph()
+    {
+        nodeColumns = new NodeColumn[transform.childCount];
+        
+        for(int i = 0; i < nodeColumns.Length; i++)
+        {
+            nodeColumns[i] = new(transform.GetChild(i).GetComponentsInChildren<Node>());
+        }
+
+        for (int x = 0; x < nodeColumns.Length; x++)
+        {
+            for (int y = 0; y < nodeColumns[x].Row.Length; y++)
+            {
+                if (!nodeColumns[x].Row[y].IsBlocked)
+                {
+                    if(x > 0 && !nodeColumns[x - 1].Row[y].IsBlocked)
+                    {
+                        nodeColumns[x].Row[y].MakeAdjacentTo(nodeColumns[x - 1].Row[y]);
+                    }
+
+                    if(x < nodeColumns.Length - 1 && !nodeColumns[x + 1].Row[y].IsBlocked)
+                    {
+                        nodeColumns[x].Row[y].MakeAdjacentTo(nodeColumns[x + 1].Row[y]);
+                    }
+
+                    if(y > 0 && !nodeColumns[x].Row[y - 1].IsBlocked)
+                    {
+                        nodeColumns[x].Row[y].MakeAdjacentTo(nodeColumns[x].Row[y - 1]);
+                    }
+
+                    if(y < nodeColumns[x].Row.Length - 1 && !nodeColumns[x].Row[y + 1].IsBlocked)
+                    {
+                        nodeColumns[x].Row[y].MakeAdjacentTo(nodeColumns[x].Row[y + 1]);
+                    }
+
+                    //Debug.Log(nodeColumns[x].Row[y].GetAdjacent().Count);
                 }
             }
         }

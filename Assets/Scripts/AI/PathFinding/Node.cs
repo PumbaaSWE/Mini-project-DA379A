@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [Serializable]
@@ -23,8 +24,6 @@ public class Node : MonoBehaviour, IEquatable<Node>
     [SerializeField]
     private Node[] nodesToMakeAdjacent;
 
-    private Material materialInstance;
-
     [SerializeField]
     private float widthX = 1;
 
@@ -32,6 +31,14 @@ public class Node : MonoBehaviour, IEquatable<Node>
     private float widthZ = 1;
 
     public float Width { get => widthX; }
+
+    [SerializeField]
+    private bool isBlocked = false;
+
+    public bool IsBlocked { get => isBlocked; }
+
+    [SerializeField]
+    private LayerMask groundMask;
 
     public Node()
     {
@@ -45,19 +52,12 @@ public class Node : MonoBehaviour, IEquatable<Node>
 
     void Awake()
     {
-        materialInstance = GetComponent<MeshRenderer>().material;
-
         AddAdjacentNodes();
     }
 
     public void SetCoordinates(Vec2Int coordinates)
     {
         Coordinates = coordinates;
-    }
-
-    public void SetColor(Color color)
-    {
-        materialInstance.color = color;
     }
 
     public void MakeAdjacentTo(Node other)

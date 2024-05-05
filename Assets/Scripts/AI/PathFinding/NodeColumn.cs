@@ -13,4 +13,9 @@ public class NodeColumn
     {
 
     }
+
+    public NodeColumn(Node[] row)
+    {
+        this.row = row;
+    }
 }

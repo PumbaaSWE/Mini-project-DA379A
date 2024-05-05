@@ -283,6 +283,8 @@ public class Pedestrian : MonoBehaviour, IThrowable
         {
             nextNode = path[nextPathNodeIndex--];
             nextPosition = nextNode.GetPointOnNode(agent.radius);
+            NavMesh.SamplePosition(nextPosition, out NavMeshHit hit, 1000, NavMesh.AllAreas);
+            nextPosition = hit.position;
 
             int adjacencyIndex = currentNode.GetAdjacent().IndexOf(nextNode);
             walkableCondition = currentNode.GetWalkableConditions()[adjacencyIndex];
@@ -292,7 +294,9 @@ public class Pedestrian : MonoBehaviour, IThrowable
 
         if(walkableCondition.Result == false && !hasBeenStopped)
         {
-            SetDestination(currentNode.GetPointOnNode(agent.radius));
+            Vector3 position = currentNode.GetPointOnNode(agent.radius);
+            NavMesh.SamplePosition(position, out NavMeshHit hit, 1000, NavMesh.AllAreas);
+            SetDestination(hit.position);
             hasBeenStopped = true;
         }
         else if (walkableCondition.Result == true && hasBeenStopped)
@@ -308,7 +312,7 @@ public class Pedestrian : MonoBehaviour, IThrowable
     {
         if (!agent.SetDestination(target))
         {
-            Debug.LogError("Could not set position");
+            Debug.LogError("Could not set position: " + target.x + "; " + target.y + "; " + target.z);
         }
     }
 

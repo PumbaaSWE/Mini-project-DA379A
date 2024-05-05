@@ -17,7 +17,7 @@ public class Deliveries
 
     public static Deliveries Instance()
     {
-        if (instance == null) instance = new Deliveries();
+        instance ??= new Deliveries();
 
         return instance;
     }
