@@ -104,8 +104,8 @@ public class Node : MonoBehaviour, IEquatable<Node>
 
     public Vector3 GetPointOnNode(float radius)
     {
-        float x = UnityEngine.Random.Range(-widthX + radius, widthX - radius);
-        float z = UnityEngine.Random.Range(-widthZ + radius, widthZ - radius);
+        float x = UnityEngine.Random.Range(-widthX + radius * 2, widthX - radius * 2);
+        float z = UnityEngine.Random.Range(-widthZ + radius * 2, widthZ - radius * 2);
 
         Vector3 offset = Quaternion.AngleAxis(transform.rotation.eulerAngles.y, transform.up) * new Vector3(x, 0, z);
 

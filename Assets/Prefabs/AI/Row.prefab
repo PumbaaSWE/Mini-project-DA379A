@@ -46,8 +46,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nodesToMakeAdjacent: []
-  widthX: 15
-  widthZ: 15
+  widthX: 10
+  widthZ: 10
   isBlocked: 0
   groundMask:
     serializedVersion: 2
