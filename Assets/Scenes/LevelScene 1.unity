@@ -6646,6 +6646,32 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!1 &1362340008 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 314670683706023631, guid: 5a05d8ba3820d4044b028c3bba34ef2e,
+    type: 3}
+  m_PrefabInstance: {fileID: 3841247486626586527}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1362340010
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1362340008}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5cd6a5a4725123046a017e359cf9b7a3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &1392582857
 GameObject:
   m_ObjectHideFlags: 0
@@ -22490,6 +22516,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 117336396318372206, guid: 5a05d8ba3820d4044b028c3bba34ef2e,
+        type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 1362340010}
+    - target: {fileID: 314670683706023631, guid: 5a05d8ba3820d4044b028c3bba34ef2e,
+        type: 3}
+      propertyPath: m_Name
+      value: mesh
+      objectReference: {fileID: 0}
     - target: {fileID: 4674914681386803769, guid: 5a05d8ba3820d4044b028c3bba34ef2e,
         type: 3}
       propertyPath: m_Name
