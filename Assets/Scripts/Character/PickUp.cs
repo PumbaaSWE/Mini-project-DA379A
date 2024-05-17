@@ -13,6 +13,11 @@ public class PickUp : MonoBehaviour
     private IThrowable heldObjectThrowable;
     private bool canDrop = true;
 
+    [Header("animation timer")]
+    [SerializeField] float frameTime;
+
+    [SerializeField] Animator animator;
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
@@ -43,8 +48,9 @@ public class PickUp : MonoBehaviour
             MoveObject();
             if (Input.GetKeyDown(KeyCode.Mouse0) && canDrop == true) //Mous0 (leftclick) is used to throw
             {
+                animator.SetTrigger("Throwing");
                 StopClipping();
-                ThrowObject();
+                StartCoroutine(throwWithTimer());
             }
         }
     }
@@ -101,5 +107,12 @@ public class PickUp : MonoBehaviour
             heldObj.transform.position = transform.position + new Vector3(0f, -0.5f, 0f); //offset slightly downward to stop object dropping above player 
             //if your player is small, change the -0.5f to a smaller number (in magnitude) ie: -0.1f
         }
+    }
+
+    IEnumerator throwWithTimer()
+    {
+        animator.SetTrigger("Throwing");
+        yield return new WaitForSecondsRealtime(frameTime);
+        ThrowObject();
     }
 }

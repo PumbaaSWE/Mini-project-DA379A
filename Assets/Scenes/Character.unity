@@ -634,7 +634,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1004613665}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.602, z: 0}
+  m_LocalPosition: {x: 0, y: -0.383, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -672,6 +672,8 @@ MonoBehaviour:
   holdPos: {fileID: 169376870}
   throwForce: 500
   pickUpRange: 5
+  frameTime: 1.4
+  animator: {fileID: 587237154}
 --- !u!114 &1004613672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1203,6 +1205,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 387473166846096075, guid: 76f58214448a3534190d15b09f18c04e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.28
       objectReference: {fileID: 0}
     - target: {fileID: 1428250951311152520, guid: 76f58214448a3534190d15b09f18c04e,
         type: 3}
