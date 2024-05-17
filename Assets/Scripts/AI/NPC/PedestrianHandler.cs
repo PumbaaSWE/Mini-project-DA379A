@@ -59,7 +59,7 @@ public class PedestrianHandler : MonoBehaviour
 
             while (goals[0] == null || goals[1] == null)
             {
-                Node next = walkableNodes[Random.Range(0, walkableNodes.Length - 1)];
+                Node next = walkableNodes[Random.Range(0, walkableNodes.Length)];
 
                 if (next != start && next != goals[0] && next != goals[1])
                 {

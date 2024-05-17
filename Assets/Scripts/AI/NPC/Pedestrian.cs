@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
 
 public class Pedestrian : MonoBehaviour, IThrowable
 {
@@ -410,6 +411,7 @@ public class Pedestrian : MonoBehaviour, IThrowable
         this.handler = handler;
 
         Vector3 point = currentNode.GetPointOnNode(agent.radius);
-        transform.position = new Vector3(point.x, 1, point.z);
+        NavMesh.SamplePosition(new Vector3(point.x, agent.height, point.z), out NavMeshHit hit, 100, NavMesh.AllAreas);
+        agent.Warp(hit.position);
     }
 }
