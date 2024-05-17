@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Collections;
 using UnityEngine;
 
 public class Graph : MonoBehaviour
@@ -12,6 +11,9 @@ public class Graph : MonoBehaviour
     [SerializeField]
     private bool autoCreate = false;
 
+    public int XLength { get; private set; }
+    public int YLength { get; private set; }
+
     void Awake()
     {
         if(autoCreate)
@@ -20,6 +22,9 @@ public class Graph : MonoBehaviour
         }
 
         InitializeNodes();
+
+        XLength = nodeColumns.Length;
+        YLength = nodeColumns[0].Row.Length;
     }
 
     private void InitializeNodes()

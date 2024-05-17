@@ -78,6 +78,8 @@ public class Pedestrian : MonoBehaviour, IThrowable
     [SerializeField]
     private float fleeingDuration = 2f;
 
+    private PedestrianHandler handler = null;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -343,5 +345,28 @@ public class Pedestrian : MonoBehaviour, IThrowable
     {
         agent.enabled = false;
         rb.useGravity = true;
+    }
+
+    public void PedestrianStart()
+    {
+        agent = GetComponent<NavMeshAgent>();
+
+        rb = GetComponent<Rigidbody>();
+
+        groundLayer = LayerMask.NameToLayer(groundLayerName);
+        projectileLayer = LayerMask.NameToLayer(projectileLayerName);
+        carLayer = LayerMask.NameToLayer(carLayerName);
+    }
+
+    public void InitPedestrian(Node currentNode, Node[] goals, Graph graph, PedestrianHandler handler)
+    {
+        this.startNode = currentNode;
+        this.currentNode = currentNode;
+        this.goals = goals;
+        this.graph = graph;
+        this.handler = handler;
+
+        Vector3 point = currentNode.GetPointOnNode(agent.radius);
+        transform.position = new Vector3(point.x, 1, point.z);
     }
 }
