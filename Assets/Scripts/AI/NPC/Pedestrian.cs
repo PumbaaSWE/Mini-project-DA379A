@@ -354,9 +354,10 @@ public class Pedestrian : MonoBehaviour, IThrowable
 
     private void SetDestination(Vector3 target)
     {
+        if (!agent.enabled) return;
         if (!agent.SetDestination(target))
         {
-            Debug.LogError("Could not set position: " + target.x + "; " + target.y + "; " + target.z);
+            //Debug.LogError("Could not set position: " + target.x + "; " + target.y + "; " + target.z);
         }
     }
 
