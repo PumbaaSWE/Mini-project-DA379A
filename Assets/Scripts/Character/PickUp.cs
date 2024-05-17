@@ -15,6 +15,7 @@ public class PickUp : MonoBehaviour
 
     private float frameTime = 1.4f;
     [SerializeField] Animator animator;
+    [SerializeField] GameObject handPos;
 
     void Update()
     {
@@ -56,10 +57,11 @@ public class PickUp : MonoBehaviour
         Rigidbody rb = pickUpObj.GetComponent<Rigidbody>();
         if (rb)
         {
+            holdPos = handPos.transform; //set hold pos to left hand joint
             heldObj = pickUpObj;
             heldObjRb = rb;
             heldObjRb.isKinematic = true;
-            heldObjRb.transform.parent = holdPos.transform;
+            heldObjRb.transform.parent = holdPos;
 
             Physics.IgnoreCollision(heldObj.GetComponent<Collider>(), player.GetComponent<Collider>(), true);
 
@@ -82,6 +84,7 @@ public class PickUp : MonoBehaviour
     
     void ThrowObject()
     {
+        holdPos = handPos.transform;
         Physics.IgnoreCollision(heldObj.GetComponent<Collider>(), player.GetComponent<Collider>(), false);
         heldObjRb.isKinematic = false;
         heldObj.transform.parent = null;
