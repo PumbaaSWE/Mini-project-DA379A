@@ -15,11 +15,12 @@ public class Recipient : MonoBehaviour
     {
         deliveries = Deliveries.Instance();
         deliveries.RequestDelivery(this);
-        deliveries.StartRandomDelivery();
+        //deliveries.StartRandomDelivery(); //sjukt... den ger ju error med mer än en delivery person...
     }
 
     private void Update()
     {
+        if (deliveries.CurrentDelivery() == null) deliveries.StartRandomDelivery();
         if (personToLookAtVeryCreepily)
         {
             transform.LookAt(new Vector3(personToLookAtVeryCreepily.position.x, transform.position.y, personToLookAtVeryCreepily.position.z));
@@ -33,7 +34,7 @@ public class Recipient : MonoBehaviour
 
         if (deliveries.CurrentDelivery() != this)
         {
-            Debug.LogError(name + ": This delivery is not for me!");
+            //Debug.LogError(name + ": This delivery is not for me!"); //Kasta inget error 
             return;
         }
 

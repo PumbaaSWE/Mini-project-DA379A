@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class PickUp : MonoBehaviour
+public class PickUp1 : MonoBehaviour
 {
     public GameObject player;
     public Transform holdPos;
@@ -21,10 +21,6 @@ public class PickUp : MonoBehaviour
     public LayerMask layerMask;
     bool shouldHelpTextBeEnabled;
 
-
-    private float frameTime = 1.4f;
-    [SerializeField] Animator animator;
-    [SerializeField] GameObject handPos;
 
     void Update()
     {
@@ -67,7 +63,7 @@ public class PickUp : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Mouse0) && canDrop == true) //Mous0 (leftclick) is used to throw
             {
                 StopClipping();
-                StartCoroutine(throwWithTimer());
+                ThrowObject();
             }
         }
 
@@ -86,7 +82,7 @@ public class PickUp : MonoBehaviour
             //}
             if (!package)
             {
-                if (packagePrefab && Input.GetKeyDown(KeyCode.F))
+                if (Input.GetKeyDown(KeyCode.F))
                 {
                     package = Instantiate(packagePrefab, holdPos);
                     PickUpObject( package.gameObject);
@@ -132,11 +128,10 @@ public class PickUp : MonoBehaviour
         Rigidbody rb = pickUpObj.GetComponent<Rigidbody>();
         if (rb)
         {
-            holdPos = handPos.transform; //set hold pos to left hand joint
             heldObj = pickUpObj;
             heldObjRb = rb;
             heldObjRb.isKinematic = true;
-            heldObjRb.transform.parent = holdPos;
+            heldObjRb.transform.parent = holdPos.transform;
 
             Physics.IgnoreCollision(heldObj.GetComponent<Collider>(), player.GetComponent<Collider>(), true);
 
@@ -159,7 +154,6 @@ public class PickUp : MonoBehaviour
     
     void ThrowObject()
     {
-        holdPos = handPos.transform;
         Physics.IgnoreCollision(heldObj.GetComponent<Collider>(), player.GetComponent<Collider>(), false);
         heldObjRb.isKinematic = false;
         heldObj.transform.parent = null;
@@ -182,13 +176,5 @@ public class PickUp : MonoBehaviour
             heldObj.transform.position = transform.position + new Vector3(0f, -0.5f, 0f); //offset slightly downward to stop object dropping above player 
             //if your player is small, change the -0.5f to a smaller number (in magnitude) ie: -0.1f
         }
-    }
-
-    IEnumerator throwWithTimer()
-    {
-        animator.SetTrigger("Throwing");
-        yield return new WaitForSecondsRealtime(frameTime);
-        ThrowObject();
-
     }
 }

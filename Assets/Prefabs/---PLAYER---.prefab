@@ -50,11 +50,16 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: -0.004
       objectReference: {fileID: 0}
+    - target: {fileID: 1772722809772150578, guid: 76f58214448a3534190d15b09f18c04e,
+        type: 3}
+      propertyPath: m_Name
+      value: mesh
+      objectReference: {fileID: 0}
     - target: {fileID: 2118039300790722707, guid: 76f58214448a3534190d15b09f18c04e,
         type: 3}
       propertyPath: animator
       value: 
-      objectReference: {fileID: 6338994143895266283}
+      objectReference: {fileID: 1362340010}
     - target: {fileID: 8930467609079971428, guid: 76f58214448a3534190d15b09f18c04e,
         type: 3}
       propertyPath: m_RootOrder
@@ -118,7 +123,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2072805166170853885}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &6338994143895266283
+--- !u!95 &1362340010
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -205,7 +210,18 @@ PrefabInstance:
         type: 3}
       propertyPath: animator
       value: 
-      objectReference: {fileID: 6338994143895266283}
+      objectReference: {fileID: 1362340010}
+    - target: {fileID: 1927701749118732218, guid: 99c2dbccfa07eef4384874c529f0fde1,
+        type: 3}
+      propertyPath: packagePrefab
+      value: 
+      objectReference: {fileID: 6492294425713006601, guid: 7ca242843cb83214d87ce95f3d8844c1,
+        type: 3}
+    - target: {fileID: 1927701749118732218, guid: 99c2dbccfa07eef4384874c529f0fde1,
+        type: 3}
+      propertyPath: layerMask.m_Bits
+      value: 16384
+      objectReference: {fileID: 0}
     - target: {fileID: 3271009544483457875, guid: 99c2dbccfa07eef4384874c529f0fde1,
         type: 3}
       propertyPath: m_Name
@@ -286,6 +302,11 @@ PrefabInstance:
       propertyPath: cameraPosition
       value: 
       objectReference: {fileID: 1847744253471367990}
+    - target: {fileID: 7046064790973949978, guid: 99c2dbccfa07eef4384874c529f0fde1,
+        type: 3}
+      propertyPath: m_TagString
+      value: MainCamera
+      objectReference: {fileID: 0}
     - target: {fileID: 7810563086487839731, guid: 99c2dbccfa07eef4384874c529f0fde1,
         type: 3}
       propertyPath: toFollow
