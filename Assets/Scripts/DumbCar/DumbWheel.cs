@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class DumbWheel : MonoBehaviour
@@ -37,11 +36,10 @@ public class DumbWheel : MonoBehaviour
     public Vector3 position;
     Vector3 wheelPosition;
     float netSpringForce;
-    float usefullMass;
+    //float usefullMass;
     bool grounded;
     Rigidbody rb;
     float accumulatedForce;
-    Vector3 TheFORCE = new Vector3();
 
     public bool IsGrounded => grounded;
     public float AngularVelocity => angularVelocity;
@@ -206,7 +204,7 @@ public class DumbWheel : MonoBehaviour
 
         //reset the forces!
         accumulatedForce = 0;
-        TheFORCE = Vector3.zero;
+        //TheFORCE = Vector3.zero;
     }
 
 

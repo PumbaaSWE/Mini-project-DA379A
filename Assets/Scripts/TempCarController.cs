@@ -5,6 +5,7 @@ public class TempCarController : MonoBehaviour
 
     [SerializeField] DumbCar car;
     [SerializeField] Transform carSpawn;
+    Vector3 origin;
     public bool controling;
     
     // Start is called before the first frame update
@@ -16,6 +17,10 @@ public class TempCarController : MonoBehaviour
                 Debug.LogWarning("TempCarController - No Car found!");
             }
         }
+        //if (!carSpawn) {
+        //    carSpawn = transform;
+        //}
+        origin = transform.position;
     }
 
     //move this out when we have character controller
@@ -35,8 +40,16 @@ public class TempCarController : MonoBehaviour
             }
             else
             {
-                car.Teleport(Vector3.zero, Quaternion.identity);
+                car.Teleport(origin, Quaternion.identity);
             }
         }
+    }
+
+    public void StopControlling()
+    {
+        controling = false;
+        //car.SetSteerInput(0);
+        car.SetThrottleInput(0);
+        car.SetRevInput(0);
     }
 }

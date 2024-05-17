@@ -75,6 +75,7 @@ public class DumbCar : MonoBehaviour
 
     //privates
     Rigidbody rb;
+    bool hasTeleported;
 
     /// <summary>
     /// Steer the car from -1 to 1
@@ -115,12 +116,17 @@ public class DumbCar : MonoBehaviour
         {
             rb.velocity = rot * LocalVelocity;
             rb.angularVelocity = rot * transform.InverseTransformDirection(rb.angularVelocity);
+            
         }
         else
         {
+            //rb.AddForce(-rb.velocity, ForceMode.VelocityChange);
+            //rb.AddTorque(-rb.angularVelocity, ForceMode.VelocityChange);
             rb.velocity = rb.angularVelocity = Vector3.zero;
             rb.Sleep();
+            //rb.
         }
+        hasTeleported = true;
         transform.SetPositionAndRotation(pos, rot);
     }
 
@@ -305,6 +311,12 @@ public class DumbCar : MonoBehaviour
         Poweeeeeeer(dt);
  //       Brake(dt);
         Rev(dt);
+        if (hasTeleported)
+        {
+            hasTeleported = false;
+            return;
+        }
+
         for (int i = 0; i < wheels.Count; i++)
         {
             wheels[i].ComputeState(dt);

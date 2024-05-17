@@ -20,6 +20,12 @@ public class DifferentCameraFollow : MonoBehaviour
 
     Vector2 additionalRotation;
 
+    public Transform ToFollow
+    {
+        get { return toFollow; }
+        set { toFollow = value; }
+    }
+
     void Update()
     {
         if (!toFollow)

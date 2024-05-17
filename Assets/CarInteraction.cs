@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class CarInteraction : MonoBehaviour
@@ -8,33 +5,44 @@ public class CarInteraction : MonoBehaviour
     [SerializeField] float interactionRange;
     [SerializeField] GameObject player;
     [SerializeField] CameraFollow carCamera;
+    [SerializeField] DifferentCameraFollow differentCamera;
     [SerializeField] MoveCamera firstPersonCamera;
+    [SerializeField] LayerMask layerMask;
 
     bool inCar = false;
 
     TempCarController car;
     Transform carDoorPos;
+
+    public void Start()
+    {
+        if(!differentCamera)
+            differentCamera = GetComponentInParent<DifferentCameraFollow>(true);
+    }
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             if(!inCar)
             {
-                RaycastHit[] hits = Physics.RaycastAll(transform.position, transform.TransformDirection(Vector3.forward), interactionRange);
+                RaycastHit[] hits = Physics.RaycastAll(transform.position, transform.TransformDirection(Vector3.forward), interactionRange, layerMask);
 
                 for (int i = 0; i < hits.Length; i++)
                 {
-                    if (hits[i].transform.gameObject.CompareTag("DriverDoor"))
+                    car = hits[i].transform.gameObject.GetComponentInParent<TempCarController>();
+                    if (car)
                     {
-                        car = hits[i].transform.gameObject.GetComponentInParent<TempCarController>();
+                        //car = hits[i].transform.gameObject.GetComponentInParent<TempCarController>();
                         carDoorPos = hits[i].transform;
                         player.SetActive(false);
-                        carCamera.toFollow = car.transform;
+                        //carCamera.toFollow = car.transform;
+                        differentCamera.ToFollow = car.transform;
 
                         car.controling = true;
                         firstPersonCamera.enabled = false;
-                        carCamera.enabled = true;
+                        //carCamera.enabled = true;
+                        differentCamera.enabled = true;
 
                         inCar = true;
                     }
@@ -52,10 +60,11 @@ public class CarInteraction : MonoBehaviour
                 player.transform.position = carDoorPos.transform.position - car.transform.right * 3;
                 player.SetActive(true);
 
-                car.controling = false;
+                //car.controling = false;
+                car.StopControlling();
                 firstPersonCamera.enabled = true;
                 carCamera.enabled = false;
-
+                differentCamera.enabled = false;
                 inCar = false;
             }
         }

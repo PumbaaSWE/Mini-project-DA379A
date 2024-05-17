@@ -34,6 +34,7 @@ public class MoveCarTrigger : MonoBehaviour
 
         bc.size = new Vector3(startWidth * w + speed * expandSpeedModifier, bc.size.y, Mathf.Max(startLength, speed * expandModifier));
         transform.position = transform.parent.position + rb.velocity * expandModifier / 2f;
-        transform.forward = dir;
+        if(dir.sqrMagnitude > 0)
+            transform.forward = dir;
     }
 }
