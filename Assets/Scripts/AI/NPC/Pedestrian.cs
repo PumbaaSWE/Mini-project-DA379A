@@ -167,6 +167,19 @@ public class Pedestrian : MonoBehaviour, IThrowable
         }
     }
 
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.layer == projectileLayer)
+        {
+            KnockDownAgent();
+        }
+
+        if (collision.gameObject.layer == carLayer)
+        {
+            KnockDownAgent();
+        }
+    }
+
     public void CannotContinue(ConditionResult conditionResult)
     {
         if (isPickedUp)
