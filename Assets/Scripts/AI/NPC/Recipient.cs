@@ -45,5 +45,7 @@ public class Recipient : MonoBehaviour
         Destroy(collision.gameObject);
         deliveries.CompleteDelivery(this);
         enabled = false;
+
+        ScoreKeeper.GetInstance().AddScore(100);
     }
 }
