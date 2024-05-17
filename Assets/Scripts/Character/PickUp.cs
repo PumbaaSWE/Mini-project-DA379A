@@ -132,7 +132,7 @@ public class PickUp : MonoBehaviour
         Rigidbody rb = pickUpObj.GetComponent<Rigidbody>();
         if (rb)
         {
-            holdPos = handPos.transform; //set hold pos to left hand joint
+            //set hold pos to left hand joint
             heldObj = pickUpObj;
             heldObjRb = rb;
             heldObjRb.isKinematic = true;
@@ -159,7 +159,6 @@ public class PickUp : MonoBehaviour
     
     void ThrowObject()
     {
-        holdPos = handPos.transform;
         Physics.IgnoreCollision(heldObj.GetComponent<Collider>(), player.GetComponent<Collider>(), false);
         heldObjRb.isKinematic = false;
         heldObj.transform.parent = null;
