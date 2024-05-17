@@ -22526,6 +22526,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: mesh
       objectReference: {fileID: 0}
+    - target: {fileID: 433620819185087649, guid: 5a05d8ba3820d4044b028c3bba34ef2e,
+        type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 1362340010}
     - target: {fileID: 4674914681386803769, guid: 5a05d8ba3820d4044b028c3bba34ef2e,
         type: 3}
       propertyPath: m_Name
