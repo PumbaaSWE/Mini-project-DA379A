@@ -109,6 +109,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void SetAnimation()
     {
+        if (!animator) return;
         if(horizontalInput == 0 && verticalInput == 0)
         {
             animator.SetBool("Walking", false);
