@@ -14,17 +14,23 @@ public class PedestrianHandler : MonoBehaviour
     private Graph graph;
 
     [SerializeField]
-    private Pedestrian pedestrian;
+    private Pedestrian[] pedestrians;
 
     private ObjectPool<Pedestrian> pool;
 
     public ObjectPool<Pedestrian> Pool { get => pool; }
 
     private Node[] walkableNodes;
+    [SerializeField]
+    private Transform parent;
 
     // Start is called before the first frame update
     void Start()
     {
+        if (!parent)
+        {
+            parent = new GameObject("---pedestrians---").transform;
+        }
         pool = new ObjectPool<Pedestrian>(CreatePedestrian, OnGetPedestrian, OnReleasePedestrian, OnDestroyPedestrian, true, minimum, maximum);
 
         List<Node> walkables = new();
@@ -84,7 +90,7 @@ public class PedestrianHandler : MonoBehaviour
 
     private Pedestrian CreatePedestrian()
     {
-        Pedestrian pedestrian = Instantiate(this.pedestrian);
+        Pedestrian pedestrian = Instantiate(pedestrians[Random.Range(0, pedestrians.Length)], parent);
 
         pedestrian.PedestrianStart();
 
