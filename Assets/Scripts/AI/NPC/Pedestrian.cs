@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -78,6 +79,13 @@ public class Pedestrian : MonoBehaviour, IThrowable
     [SerializeField]
     private float fleeingDuration = 2f;
 
+    [Header("Speeds")]
+    [SerializeField]
+    float walkSpeed = 2f;
+    [SerializeField]
+    float runSpeed = 4f;
+
+
     private PedestrianHandler handler = null;
 
     // Start is called before the first frame update
@@ -130,10 +138,30 @@ public class Pedestrian : MonoBehaviour, IThrowable
             }
         }
 
-        if(other.gameObject.layer == carLayer)
+        if (other.gameObject.layer == carLayer)
         {
-            isAfraid = true;
-            escapeDirection = (transform.position - other.transform.position).normalized;
+            WeHaveToFleeDude(other);
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.layer == carLayer)
+        {
+            WeHaveToFleeDude(other);
+        }
+    }
+
+    private void WeHaveToFleeDude(Collider other)
+    {
+        isAfraid = true;
+        agent.speed = runSpeed;
+        Rigidbody carRb = other.GetComponentInParent<Rigidbody>();
+
+        if (carRb != null)
+        {
+            Vector3 perp = new Vector3(-carRb.velocity.z, 0, carRb.velocity.x);
+            escapeDirection = perp.normalized * -Mathf.Sign(Vector3.Dot(perp, other.transform.parent.position - transform.position));
         }
     }
 
@@ -235,6 +263,7 @@ public class Pedestrian : MonoBehaviour, IThrowable
             if(fleeTime <= 0)
             {
                 isAfraid = false;
+                agent.speed = walkSpeed;
                 SetDestination(nextPosition);
             }
         }

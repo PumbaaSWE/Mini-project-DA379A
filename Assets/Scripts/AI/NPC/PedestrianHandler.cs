@@ -14,7 +14,7 @@ public class PedestrianHandler : MonoBehaviour
     private Graph graph;
 
     [SerializeField]
-    private Pedestrian pedestrian;
+    private Pedestrian[] pedestrians;
 
     private ObjectPool<Pedestrian> pool;
 
@@ -84,7 +84,7 @@ public class PedestrianHandler : MonoBehaviour
 
     private Pedestrian CreatePedestrian()
     {
-        Pedestrian pedestrian = Instantiate(this.pedestrian);
+        Pedestrian pedestrian = Instantiate(pedestrians[Random.Range(0, pedestrians.Length)]);
 
         pedestrian.PedestrianStart();
 
