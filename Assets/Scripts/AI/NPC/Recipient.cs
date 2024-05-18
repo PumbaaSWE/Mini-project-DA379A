@@ -21,7 +21,7 @@ public class Recipient : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (!collision.transform.TryGetComponent(out Package _))
+        if (!collision.transform.TryGetComponent(out Package package))
             return;
 
         if (deliveries.CurrentRecipient() != this)
@@ -33,7 +33,7 @@ public class Recipient : MonoBehaviour
         Destroy(collision.gameObject);
         deliveries.CompleteDelivery(this);
 
-        ScoreKeeper.GetInstance().AddScore(100);
+        ScoreKeeper.GetInstance().AddScore(package.Health);
     }
 
     public void InitRecipient()
