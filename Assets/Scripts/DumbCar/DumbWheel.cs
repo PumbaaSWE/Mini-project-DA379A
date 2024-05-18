@@ -55,7 +55,7 @@ public class DumbWheel : MonoBehaviour
     {
         grounded = false;
         position = transform.position - (springRestLength + springMax + wheelRadius) * transform.up;
-        if (Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, springRestLength + springMax + wheelRadius, layerMask))
+        if (Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, springRestLength + springMax + wheelRadius, layerMask, QueryTriggerInteraction.Ignore))
         {
             grounded = true;
             position = hit.point;
