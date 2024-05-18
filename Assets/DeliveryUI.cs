@@ -29,7 +29,7 @@ public class DeliveryUI : MonoBehaviour
         if(Vector3.Dot(relPos, Camera.main.transform.forward) > 0)
         {
             image.enabled = true;
-            Vector3 pos = Camera.main.WorldToScreenPoint(recipient.transform.position + Vector3.up * 2);
+            Vector3 pos = Camera.main.WorldToScreenPoint(recipient.transform.position + Vector3.up * 2).WithZ();
 
             image.transform.position = pos;
         }
