@@ -451,6 +451,7 @@ GameObject:
   - component: {fileID: 207342363625029868}
   - component: {fileID: 207342363625029871}
   - component: {fileID: 207342363625029870}
+  - component: {fileID: 7448872690308713336}
   m_Layer: 7
   m_Name: Pedestrian 5
   m_TagString: canPickUp
@@ -603,6 +604,19 @@ MonoBehaviour:
   fleeingDuration: 2
   walkSpeed: 2
   runSpeed: 6
+--- !u!114 &7448872690308713336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 207342363625029873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88b4f3430a94d2b4b90a209343575ba4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  personToLookAtVeryCreepily: {fileID: 0}
 --- !u!1 &2327221740961701291
 GameObject:
   m_ObjectHideFlags: 0

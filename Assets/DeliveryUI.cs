@@ -14,7 +14,7 @@ public class DeliveryUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Recipient recipient = Deliveries.Instance().CurrentDelivery();
+        Recipient recipient = Deliveries.GetInstance().CurrentRecipient();
         if (recipient == null)
         {
             image.enabled = false;

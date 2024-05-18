@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Pool;
 using Random = UnityEngine.Random;
@@ -24,10 +22,9 @@ public class PedestrianHandler : MonoBehaviour
     public ObjectPool<Pedestrian> Pool { get => pool; }
 
     private Node[] walkableNodes;
+
     [SerializeField]
     private Transform parent;
-    [SerializeField]
-    private int recipients = 10;
 
     // Start is called before the first frame update
     void Start()
@@ -36,17 +33,25 @@ public class PedestrianHandler : MonoBehaviour
         {
             parent = new GameObject("---pedestrians---").transform;
         }
+
         pool = new ObjectPool<Pedestrian>(CreatePedestrian, OnGetPedestrian, OnReleasePedestrian, OnDestroyPedestrian, true, minimum, maximum);
 
+        InitPedestrians();
+
+        Deliveries.GetInstance().StartRandomDelivery();
+    }
+
+    private void InitPedestrians()
+    {
         List<Node> walkables = new();
 
-        for(int i = 0; i < graph.XLength; i++)
+        for (int i = 0; i < graph.XLength; i++)
         {
-            for(int j = 0; j < graph.YLength; j++)
+            for (int j = 0; j < graph.YLength; j++)
             {
                 Node node = graph.GetNode(i, i);
 
-                if(!node.IsBlocked)
+                if (!node.IsBlocked)
                 {
                     walkables.Add(node);
                 }
@@ -54,8 +59,8 @@ public class PedestrianHandler : MonoBehaviour
         }
 
         walkableNodes = walkables.ToArray();
-        List<Pedestrian> peds = new List<Pedestrian>(minimum+1);
-        for(int i = 0; i < minimum; i++)
+
+        for (int i = 0; i < minimum; i++)
         {
             Node[] goals = new Node[3];
             Node start = walkableNodes[Random.Range(0, walkableNodes.Length - 1)];
@@ -84,22 +89,8 @@ public class PedestrianHandler : MonoBehaviour
 
             Pedestrian pedestrian = pool.Get();
             pedestrian.InitPedestrian(start, goals, graph, this);
-            peds.Add(pedestrian);
+            pedestrian.GetComponent<Recipient>().InitRecipient();
         }
-
-
-        for (int i = 0; i < Math.Min(peds.Count, recipients); i++)
-        {
-            peds[i].transform.AddComponent<Recipient>();
-        }
-        peds.Clear();
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     private Pedestrian CreatePedestrian()
