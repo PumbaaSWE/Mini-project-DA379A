@@ -27,7 +27,6 @@ public class Recipient : MonoBehaviour
         if (deliveries.CurrentRecipient() != this)
         {
             ScoreKeeper.GetInstance().AddScore(-50);
-            Destroy(collision.gameObject);
             return;
         }
 
