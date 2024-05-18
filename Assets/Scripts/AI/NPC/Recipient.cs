@@ -29,7 +29,17 @@ public class Recipient : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (!collision.transform.TryGetComponent(out Package _))
+        CheckDelivery(collision.transform);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        CheckDelivery(other.transform);
+    }
+
+    private void CheckDelivery(Transform other)
+    {
+        if (!other.TryGetComponent(out Package _))
             return;
 
         if (deliveries.CurrentDelivery() != this)
@@ -42,7 +52,7 @@ public class Recipient : MonoBehaviour
         print("Number of completed deliveries: " + deliveries.Completed() + " / " + deliveries.Needed());
         print("Number of delivery requests: " + deliveries.Waiting());
 
-        Destroy(collision.gameObject);
+        Destroy(other.gameObject);
         deliveries.CompleteDelivery(this);
         enabled = false;
 

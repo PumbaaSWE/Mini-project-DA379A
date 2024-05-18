@@ -13,14 +13,17 @@ public class CarInteraction : MonoBehaviour
     [SerializeField] private TextMeshProUGUI text;
 
     bool inCar = false;
-
     TempCarController car;
     Transform carDoorPos;
+
+    //AnimController animController;
 
     public void Start()
     {
         if(!differentCamera)
             differentCamera = GetComponentInParent<DifferentCameraFollow>(true);
+
+        
     }
     // Update is called once per frame
     void Update()
