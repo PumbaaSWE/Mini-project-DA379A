@@ -617,6 +617,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   personToLookAtVeryCreepily: {fileID: 0}
+  happyEffect: {fileID: 8159374321599166643, guid: db56ccdc80e2d214b9bcc7a363bb862a,
+    type: 3}
+  angryEffect: {fileID: 5932564655787427884, guid: e81e2fa6bba502f4ca4ccda6776e5f01,
+    type: 3}
 --- !u!1 &2327221740961701291
 GameObject:
   m_ObjectHideFlags: 0

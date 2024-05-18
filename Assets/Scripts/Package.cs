@@ -22,6 +22,12 @@ public class Package : MonoBehaviour, IThrowable
 
     private BoxCollider boxCollider;
 
+    private bool hasBeenDamagedRecently = false;
+
+    private float recentlyDamagedTimer;
+
+    private const float timeForRecentDamage = 0.1f;
+
     private void Start()
     {
         health = maxHealth;
@@ -33,6 +39,16 @@ public class Package : MonoBehaviour, IThrowable
     {
         healthBar.value = (float)health / maxHealth;
         healthText.text = health + "hp";
+
+        if(hasBeenDamagedRecently)
+        {
+            recentlyDamagedTimer -= Time.deltaTime;
+
+            if(recentlyDamagedTimer <= 0)
+            {
+                hasBeenDamagedRecently = false;
+            }
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -46,6 +62,9 @@ public class Package : MonoBehaviour, IThrowable
         }
 
         health -= collisionDamage;
+
+        hasBeenDamagedRecently = true;
+        recentlyDamagedTimer = timeForRecentDamage;
 
         if(health <= 0)
         {

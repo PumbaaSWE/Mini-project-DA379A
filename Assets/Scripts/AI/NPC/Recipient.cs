@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.VFX;
 
 /// <summary>
 /// 
@@ -10,6 +11,12 @@ public class Recipient : MonoBehaviour
     private Deliveries deliveries;
 
     public Transform personToLookAtVeryCreepily;
+
+    [SerializeField]
+    private VisualEffect happyEffect;
+
+    [SerializeField]
+    private VisualEffect angryEffect;
 
     private void Update()
     {
@@ -27,6 +34,7 @@ public class Recipient : MonoBehaviour
         if (deliveries.CurrentRecipient() != this)
         {
             ScoreKeeper.GetInstance().AddScore(-50);
+            Instantiate(angryEffect, transform.position, Quaternion.identity);
             return;
         }
 
@@ -34,6 +42,7 @@ public class Recipient : MonoBehaviour
         deliveries.CompleteDelivery(this);
 
         ScoreKeeper.GetInstance().AddScore(package.Health);
+        Instantiate(happyEffect, transform.position, Quaternion.identity);
     }
 
     public void InitRecipient()
