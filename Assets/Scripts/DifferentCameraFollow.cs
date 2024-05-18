@@ -67,7 +67,7 @@ public class DifferentCameraFollow : MonoBehaviour
         Ray ray = new Ray(transform.position, transform.forward * offset.z);
         float radius = 1f;
         float maxDistance = Mathf.Abs(offset.z);
-        bool hitSomething = Physics.SphereCast(ray, radius, out RaycastHit hitInfo, maxDistance, cameraCollidesWith);
+        bool hitSomething = Physics.SphereCast(ray, radius, out RaycastHit hitInfo, maxDistance, cameraCollidesWith, QueryTriggerInteraction.Ignore);
         if (hitSomething)
         {
             //move camera from obstructions
