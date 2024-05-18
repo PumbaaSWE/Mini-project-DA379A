@@ -4,36 +4,27 @@ using UnityEngine;
 /// <summary>
 /// 
 /// <para>  Singleton instance that keeps track of deliveries.  </para>
-/// <para>  Use Instance() for EZ access.                       </para>
+/// <para>  Use GetInstance() for easy access.                       </para>
 /// 
 /// </summary>
-public class Deliveries
+public class Deliveries : GenericSingleton<Deliveries>
 {
-    private static Deliveries instance;
-    private Deliveries()
+    private readonly List<Recipient> waitingRecipients;
+
+    private Recipient currentRecipient;
+    private Recipient lastRecipient;
+
+    private Deliveries() : base()
     {
         waitingRecipients = new List<Recipient>();
     }
-
-    public static Deliveries Instance()
-    {
-        instance ??= new Deliveries();
-
-        return instance;
-    }
-
-    private const int deliveriesToComplete = 1;
-
-    private List<Recipient> waitingRecipients;
-    private Recipient currentRecipient;
-    private int completedDeliveries;
 
     /// <summary>
     /// 
     /// Request delivery to <paramref name="recipient"/>.
     /// 
     /// </summary>
-    public void RequestDelivery(Recipient recipient)
+    public void AddRecipient(Recipient recipient)
     {
         if (waitingRecipients.Contains(recipient))
         {
@@ -57,11 +48,15 @@ public class Deliveries
             return;
         }
 
-        int randomIndex = Random.Range(0, waitingRecipients.Count);
-        currentRecipient = waitingRecipients[randomIndex];
-        waitingRecipients.RemoveAt(randomIndex);
+        while(currentRecipient == null)
+        {
+            int randomIndex = Random.Range(0, waitingRecipients.Count);
 
-        Debug.Log("Delivery package to " + currentRecipient.name);
+            if (waitingRecipients[randomIndex] != lastRecipient)
+            {
+                currentRecipient = waitingRecipients[randomIndex];
+            }
+        }
     }
 
     /// <summary>
@@ -78,13 +73,10 @@ public class Deliveries
             return;
         }
 
+        lastRecipient = currentRecipient;
         currentRecipient = null;
-        completedDeliveries++;
 
-        if (completedDeliveries < deliveriesToComplete)
-        {
-            StartRandomDelivery();
-        }
+        StartRandomDelivery();
     }
 
     /// <summary>
@@ -92,29 +84,9 @@ public class Deliveries
     /// Returns the <paramref name="recipient"/> that is waiting for our delivery.
     /// 
     /// </summary>
-    public Recipient CurrentDelivery()
+    public Recipient CurrentRecipient()
     {
         return currentRecipient;
-    }
-
-    /// <summary>
-    /// 
-    /// Returns <paramref name="true"/> if the player has completed enough deliveries.
-    /// 
-    /// </summary>
-    public bool Finished()
-    {
-        return completedDeliveries >= deliveriesToComplete;
-    }
-
-    public int Completed()
-    {
-        return completedDeliveries;
-    }
-
-    public int Needed()
-    {
-        return deliveriesToComplete;
     }
 
     public int Waiting()

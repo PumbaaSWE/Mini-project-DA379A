@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -9,8 +8,9 @@ public class TimeDisplay : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI timeText;
 
-    [SerializeField]
-    private string timeDescription = "s left!";
+    [SerializeField] private string preTimeDescription = "Time left: ";
+    [SerializeField] private string postTimeDescription = " time left!";
+    [SerializeField] private bool showMillies = true;
 
     [SerializeField]
     private float startTime = 180f;
@@ -35,7 +35,14 @@ public class TimeDisplay : MonoBehaviour
         }
         else
         {
-            timeText.text = TimeKeeper.GetInstance().GetTime().ToString("0.00") + timeDescription;
+            float time = TimeKeeper.GetInstance().GetTime();
+            //string result = string.Format(CultureInfo.InvariantCulture, "{00}:{01:00}", (int)time / 60, time % 60);
+
+            TimeSpan ts = TimeSpan.FromSeconds(time);
+
+            string result = ts.ToString(showMillies ? "mm\\:ss\\.fff" : "mm\\:ss");
+
+            timeText.text = preTimeDescription + result + postTimeDescription;
         }        
     }
 }

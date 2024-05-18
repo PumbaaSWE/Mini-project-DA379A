@@ -2,25 +2,17 @@ using UnityEngine;
 
 /// <summary>
 /// 
-/// <para>  Will probably inherit pedestrian later? </para>
+/// <para>  Recipient of package deliveries. </para>
 /// 
 /// </summary>
 public class Recipient : MonoBehaviour
 {
-    Deliveries deliveries;
+    private Deliveries deliveries;
 
     public Transform personToLookAtVeryCreepily;
 
-    private void Start()
-    {
-        deliveries = Deliveries.Instance();
-        deliveries.RequestDelivery(this);
-        //deliveries.StartRandomDelivery(); //sjukt... den ger ju error med mer än en delivery person...
-    }
-
     private void Update()
     {
-        if (deliveries.CurrentDelivery() == null) deliveries.StartRandomDelivery();
         if (personToLookAtVeryCreepily)
         {
             transform.LookAt(new Vector3(personToLookAtVeryCreepily.position.x, transform.position.y, personToLookAtVeryCreepily.position.z));
@@ -42,20 +34,22 @@ public class Recipient : MonoBehaviour
         if (!other.TryGetComponent(out Package _))
             return;
 
-        if (deliveries.CurrentDelivery() != this)
+        if (deliveries.CurrentRecipient() != this)
         {
-            //Debug.LogError(name + ": This delivery is not for me!"); //Kasta inget error 
+            ScoreKeeper.GetInstance().AddScore(-50);
             return;
         }
 
-        print(name + ": Thank you!");
-        print("Number of completed deliveries: " + deliveries.Completed() + " / " + deliveries.Needed());
-        print("Number of delivery requests: " + deliveries.Waiting());
 
-        Destroy(other.gameObject);
+        Destroy(collision.gameObject);
         deliveries.CompleteDelivery(this);
-        enabled = false;
 
         ScoreKeeper.GetInstance().AddScore(100);
+    }
+
+    public void InitRecipient()
+    {
+        deliveries = Deliveries.GetInstance();
+        deliveries.AddRecipient(this);
     }
 }

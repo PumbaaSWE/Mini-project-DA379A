@@ -86,6 +86,7 @@ public class Pedestrian : MonoBehaviour, IThrowable
     [SerializeField]
     float runSpeed = 4f;
 
+    private bool hasBeenHit = false;
 
     private PedestrianHandler handler = null;
 
@@ -141,7 +142,7 @@ public class Pedestrian : MonoBehaviour, IThrowable
 
         if (other.gameObject.layer == carLayer)
         {
-            WeHaveToFleeDude(other);
+            GetEscapeDirection(other);
         }
     }
 
@@ -149,11 +150,11 @@ public class Pedestrian : MonoBehaviour, IThrowable
     {
         if (other.gameObject.layer == carLayer)
         {
-            WeHaveToFleeDude(other);
+            GetEscapeDirection(other);
         }
     }
 
-    private void WeHaveToFleeDude(Collider other)
+    private void GetEscapeDirection(Collider other)
     {
         isAfraid = true;
         agent.speed = runSpeed;
@@ -161,7 +162,7 @@ public class Pedestrian : MonoBehaviour, IThrowable
 
         if (carRb != null)
         {
-            Vector3 perp = new Vector3(-carRb.velocity.z, 0, carRb.velocity.x);
+            Vector3 perp = new(-carRb.velocity.z, 0, carRb.velocity.x);
             escapeDirection = perp.normalized * -Mathf.Sign(Vector3.Dot(perp, other.transform.parent.position - transform.position));
         }
     }
@@ -193,6 +194,12 @@ public class Pedestrian : MonoBehaviour, IThrowable
         if(collision.gameObject.layer == carLayer)
         {
             KnockDownAgent();
+
+            if(!hasBeenHit)
+            {
+                ScoreKeeper.GetInstance().AddScore(-10);
+                hasBeenHit = true;
+            }
         }
     }
 
@@ -367,6 +374,7 @@ public class Pedestrian : MonoBehaviour, IThrowable
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
         rb.useGravity = false;
+        hasBeenHit = false;
 
         agent.enabled = true;
         SetDestination(nextPosition);
