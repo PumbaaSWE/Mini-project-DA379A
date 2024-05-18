@@ -1,17 +1,31 @@
 using System.Collections;
 using UnityEngine;
 
+
+/*
+ * This class should not hadle packages, only animations
+ * Use events or callbacks to know when pick up and throw anims are in the correct place
+ * */
 public class AnimController : MonoBehaviour
 {
     public Animator animator;
     public float pickDelay = 0.5f;
     public float throwDelay = 0.06f;
     //public Rigidbody packetPrefab;
-    Rigidbody packet;
+    public Rigidbody packet;
     public float force = 100;
+    public float upForce = 100;
     public Transform holdPos;
     bool thrown;
     public bool IsHolding => packet != null && !thrown;
+
+    public delegate void OnThrow();
+    public event OnThrow OnThrowCallback;
+
+    public delegate void OnPickUp();
+    public event OnPickUp OnPickUpCallback;
+
+    public Transform HoldPos => holdPos;
 
     // Start is called before the first frame update
     void Start()
@@ -35,9 +49,10 @@ public class AnimController : MonoBehaviour
 
 
         
-        animator.SetBool("Holding", (packet != null) && !thrown);
-        
+        animator.SetBool("Holding", IsHolding);
+        //if(packet.gameObject.activeSelf)
 
+        //if(packet == null)
         //if (Input.GetKeyDown(KeyCode.R))
         //{
         //    animator.SetTrigger("Hold");
@@ -57,7 +72,11 @@ public class AnimController : MonoBehaviour
     public void DoThrow()
     {
         animator.SetTrigger("Throw");
-        StartCoroutine(Throw(throwDelay));
+        if (!packet) return;
+        if (packet.gameObject.activeSelf)
+        {
+            StartCoroutine(Throw(throwDelay));
+        }
     }
 
 
@@ -71,13 +90,32 @@ public class AnimController : MonoBehaviour
         }
     }
 
+    private void OnDisable()
+    {
+        if(packet)
+            packet.gameObject.SetActive(false);
+        if (animator)
+            animator.gameObject.SetActive(false);
+
+    }
+
+    private void OnEnable()
+    {
+        if (packet)
+            packet.gameObject.SetActive(true);
+        if (animator)
+            animator.gameObject.SetActive(true);
+    }
+
     IEnumerator PickUp(float t, Rigidbody body)
     {
         yield return new WaitForSeconds(t);
+        OnPickUpCallback?.Invoke();
         if (packet == null)
         {
             //packet = Instantiate(packetPrefab);
             packet = body;
+            if (!enabled) packet.gameObject.SetActive(false);
             packet.isKinematic = true;
             thrown = false;
         }
@@ -87,16 +125,16 @@ public class AnimController : MonoBehaviour
     IEnumerator Throw(float t)
     {
         yield return new WaitForSeconds(t);
+        OnThrowCallback?.Invoke();
         Throw();
-        
     }
 
     private void Throw()
     {
-        if(!packet) return;
+        //if(!packet) return;
         thrown = true;
         packet.isKinematic = false;
-        packet.AddForce(transform.forward * force);
+        packet.AddForce(transform.forward * force + Vector3.up * upForce);
         Debug.DrawRay(packet.position, transform.forward, Color.red, 5);
         packet = null;
     }

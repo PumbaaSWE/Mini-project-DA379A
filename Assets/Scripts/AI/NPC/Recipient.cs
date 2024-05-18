@@ -41,7 +41,7 @@ public class Recipient : MonoBehaviour
         }
 
 
-        Destroy(collision.gameObject);
+        Destroy(other.gameObject);
         deliveries.CompleteDelivery(this);
 
         ScoreKeeper.GetInstance().AddScore(100);

@@ -53,6 +53,7 @@ public class DumbCar : MonoBehaviour
 
     [Header("Misc")]
     [SerializeField] Transform centerOfMass;
+    [SerializeField] float selfRight = 1;
 
     //should be private
     [Header("For debug")]
@@ -387,5 +388,10 @@ public class DumbCar : MonoBehaviour
             drivenWheels.Add(wheels[0]);
             drivenWheels.Add(wheels[1]);
         }
+    }
+
+    public void SelfRight()
+    {
+        rb.AddTorque(rb.mass * selfRight * transform.up);
     }
 }

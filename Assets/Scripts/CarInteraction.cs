@@ -1,4 +1,3 @@
-using System;
 using TMPro;
 using UnityEngine;
 
@@ -7,11 +6,13 @@ public class CarInteraction : MonoBehaviour
     [SerializeField] float interactionRange;
     [SerializeField] GameObject player;
     [SerializeField] PlayerCamera playerCamera;
-    [SerializeField] CameraFollow carCamera;
+    //[SerializeField] CameraFollow carCamera;
     [SerializeField] DifferentCameraFollow differentCamera;
     [SerializeField] MoveCamera firstPersonCamera;
     [SerializeField] LayerMask layerMask;
     [SerializeField] private TextMeshProUGUI text;
+    [SerializeField] private PickUp pickUp;
+    [SerializeField] private float pushForce = 1000;
 
     bool inCar = false;
     TempCarController car;
@@ -24,12 +25,23 @@ public class CarInteraction : MonoBehaviour
         if(!differentCamera)
             differentCamera = GetComponentInParent<DifferentCameraFollow>(true);
 
-        
+        if(!pickUp)
+            pickUp = GetComponent<PickUp>();
     }
     // Update is called once per frame
     void Update()
     {
         Interact();
+
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit,interactionRange, layerMask)){
+                if (hit.rigidbody)
+                {
+                    hit.rigidbody.AddForceAtPosition(transform.forward * pushForce, hit.point);
+                }
+            }
+        }
 
 
         //if (Input.GetKeyDown(KeyCode.E))
@@ -114,12 +126,12 @@ public class CarInteraction : MonoBehaviour
 
     private void DoExit()
     {
-        RaycastHit[] hits = Physics.RaycastAll(carDoorPos.transform.position, -car.transform.right, 2);
-        if (hits.Length > 0)
-        {
-            Debug.Log("Somthing is in the way of the driver door!!");
-            return;
-        }
+        //RaycastHit[] hits = Physics.RaycastAll(carDoorPos.transform.position, -car.transform.right, 2);
+        //if (hits.Length > 0)
+        //{
+        //    Debug.Log("Somthing is in the way of the driver door!!");
+        //    return;
+        //}
 
         player.transform.position = carDoorPos.transform.position - car.transform.right * 3;
         player.SetActive(true);
@@ -130,15 +142,18 @@ public class CarInteraction : MonoBehaviour
         transform.localPosition = new Vector3(0, -0.28f, 0);
         transform.localPosition += transform.forward * 0.038f;
         firstPersonCamera.enabled = true;
-        carCamera.enabled = false;
+        GetComponent<AnimController>().enabled = true;
+        //carCamera.enabled = false;
         differentCamera.enabled = false;
         inCar = false;
+        pickUp.enabled = true;
     }
 
     private void DoEnter()
     {
         player.SetActive(false);
         //carCamera.toFollow = car.transform;
+        GetComponent<AnimController>().enabled = false;
         playerCamera.enabled = false;
         differentCamera.ToFollow = car.transform;
         car.controling = true;
@@ -146,6 +161,7 @@ public class CarInteraction : MonoBehaviour
         //carCamera.enabled = true;
         differentCamera.enabled = true;
         inCar = true;
+        pickUp.enabled = false;
     }
 
     void ShowHelp(bool showText)

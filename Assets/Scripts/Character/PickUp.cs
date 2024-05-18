@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PickUp : MonoBehaviour
@@ -8,6 +9,7 @@ public class PickUp : MonoBehaviour
     //public Transform holdPos;
     //public float throwForce = 500f;
     public float pickUpRange = 3f;
+    public float pickUpRadius = .5f;
     public TextMeshProUGUI text;
 
     [Header("Trunk")]
@@ -18,7 +20,7 @@ public class PickUp : MonoBehaviour
     [Header("Animation")]
     public AnimController animController;
 
-
+    RaycastHit[] hits = new RaycastHit[20];
 
     //private float frameTime = 1.4f;
     //[SerializeField] Animator animator;
@@ -64,16 +66,29 @@ public class PickUp : MonoBehaviour
     {
         Rigidbody heldObjRb = null;
         bool canPickUp = false;
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out RaycastHit hit, pickUpRange, 0xFFFF, QueryTriggerInteraction.Ignore))
+        int n = Physics.SphereCastNonAlloc(transform.position - transform.forward * pickUpRadius, pickUpRadius, transform.forward, hits, pickUpRange, 0xFFFF, QueryTriggerInteraction.Ignore);
+
+        Transform best = null;
+        float bestDistance = float.MaxValue;
+        for (int i = 0; i < n; i++)
         {
-            //make sure pickup tag is attached
-            if (hit.transform.gameObject.CompareTag("canPickUp"))
+            if (hits[i].transform.gameObject.CompareTag("canPickUp"))
             {
+                if(hits[i].distance < bestDistance)
+                {
+                    bestDistance = hits[i].distance;
+                    best = hits[i].transform;
+                }
                 canPickUp = true;
-                heldObjRb = hit.transform.GetComponent<Rigidbody>();
-                HelpText("Press [F] to pick up");
             }
         }
+        if (canPickUp)
+        {
+            heldObjRb = best.GetComponent<Rigidbody>();
+            HelpText("Press [F] to pick up");
+        }
+
+
         if (canPickUp && (Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.Mouse0)))
         {
             animController.PickUp(heldObjRb); 
@@ -88,19 +103,29 @@ public class PickUp : MonoBehaviour
             {
                 if (packagePrefab && Input.GetKeyDown(KeyCode.F))
                 {
-                    package = Instantiate(packagePrefab);
+                    package = Instantiate(packagePrefab, transform.position, Quaternion.identity);
                     animController.PickUp(package.GetComponent<Rigidbody>());
                     //PickUpObject( package.gameObject);
                     return true;
                 }
                 HelpText("Press [F] to pick up a new package");
             }
-            else
+            else if(!animController.IsHolding)
             {
                 HelpText("Deliver current package!");
             }
         }
         return false;
+    }
+
+    public void LateUpdate()
+    {
+        //if (!thrown && package)
+        //{
+
+        //    package.transform.SetLocalPositionAndRotation(animController.HoldPos.position, animController.HoldPos.rotation);
+
+        //}
     }
 
     void HelpText(string s = "")
@@ -116,4 +141,9 @@ public class PickUp : MonoBehaviour
         if (text) text.enabled = b;
     }
 
+
+    private void OnDisable()
+    {
+        HelpText(false);
+    }
 }

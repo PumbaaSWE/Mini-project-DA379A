@@ -34,13 +34,28 @@ public class TempCarController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
         {
+            car.SelfRight();
+
+
+            //if (carSpawn)
+            //{
+            //    car.Teleport(carSpawn.position, carSpawn.rotation);
+            //}
+            //else
+            //{
+            //    car.Teleport(origin, Quaternion.identity);
+            //}
+        }
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
             if (carSpawn)
             {
                 car.Teleport(carSpawn.position, carSpawn.rotation);
             }
             else
             {
-                car.Teleport(origin, Quaternion.identity);
+                car.Teleport(transform.position+Vector3.up, Quaternion.LookRotation(transform.forward, Vector3.up));
             }
         }
     }

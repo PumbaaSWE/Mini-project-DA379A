@@ -25,7 +25,7 @@ public class Interact : MonoBehaviour
 
     [Header("Special")]
     [SerializeField] private LayerMask specialLayer;
-    [SerializeField] private float specialRange = 3;
+   // [SerializeField] private float specialRange = 3;
     [SerializeField] private Package packagePrefab;
     [SerializeField] private Package package;
 
