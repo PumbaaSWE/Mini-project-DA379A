@@ -6,6 +6,7 @@ public class CarInteraction : MonoBehaviour
 {
     [SerializeField] float interactionRange;
     [SerializeField] GameObject player;
+    [SerializeField] PlayerCamera playerCamera;
     [SerializeField] CameraFollow carCamera;
     [SerializeField] DifferentCameraFollow differentCamera;
     [SerializeField] MoveCamera firstPersonCamera;
@@ -122,6 +123,9 @@ public class CarInteraction : MonoBehaviour
 
         //car.controling = false;
         car.StopControlling();
+        playerCamera.enabled = true;
+        transform.localPosition = new Vector3(0, -0.28f, 0);
+        transform.localPosition += transform.forward * 0.038f;
         firstPersonCamera.enabled = true;
         carCamera.enabled = false;
         differentCamera.enabled = false;
@@ -132,6 +136,7 @@ public class CarInteraction : MonoBehaviour
     {
         player.SetActive(false);
         //carCamera.toFollow = car.transform;
+        playerCamera.enabled = false;
         differentCamera.ToFollow = car.transform;
         car.controling = true;
         firstPersonCamera.enabled = false;
