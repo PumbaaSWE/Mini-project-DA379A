@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -25,6 +24,8 @@ public class PickUp : MonoBehaviour
     private float frameTime = 1.4f;
     [SerializeField] Animator animator;
     [SerializeField] GameObject handPos;
+
+    private bool isThrowing = false;
 
     void Update()
     {
@@ -61,13 +62,18 @@ public class PickUp : MonoBehaviour
                 }
             }
         }
+
         if (heldObj != null) //if player is holding object
         {
             MoveObject();
-            if (Input.GetKeyDown(KeyCode.Mouse0) && canDrop == true) //Mous0 (leftclick) is used to throw
+            if (!isThrowing)
             {
-                StopClipping();
-                StartCoroutine(throwWithTimer());
+                if (Input.GetKeyDown(KeyCode.Mouse0) && canDrop == true) //Mous0 (leftclick) is used to throw
+                {
+                    isThrowing = true;
+                    StopClipping();
+                    StartCoroutine(ThrowWithTimer());
+                }
             }
         }
 
@@ -77,19 +83,14 @@ public class PickUp : MonoBehaviour
 
     bool Interact()
     {
-        //HelpText(false);
         if (Physics.Raycast(transform.position, transform.forward,out RaycastHit hit, pickUpRange, layerMask, QueryTriggerInteraction.Collide))
         {
-            //if (((1 << hit.collider.gameObject.layer) & layerMask) != 0)
-            //{
-            //    //It matched
-            //}
-            if (!package)
+            if (!package && heldObj == null)
             {
                 if (packagePrefab && Input.GetKeyDown(KeyCode.F))
                 {
                     package = Instantiate(packagePrefab, holdPos);
-                    PickUpObject( package.gameObject);
+                    PickUpObject(package.gameObject);
                     return true;
                 }
                 HelpText("Press [F] to pick up package");
@@ -151,6 +152,8 @@ public class PickUp : MonoBehaviour
         heldObjRb.isKinematic = false;
         heldObj.transform.parent = null;
         heldObj = null;
+
+        heldObjectThrowable?.PerformThrowLogic();
     }
     void MoveObject()
     {
@@ -183,11 +186,11 @@ public class PickUp : MonoBehaviour
         }
     }
 
-    IEnumerator throwWithTimer()
+    IEnumerator ThrowWithTimer()
     {
         animator.SetTrigger("Throwing");
         yield return new WaitForSecondsRealtime(frameTime);
         ThrowObject();
-
+        isThrowing = false;
     }
 }
