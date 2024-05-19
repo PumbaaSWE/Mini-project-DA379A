@@ -87,6 +87,7 @@ public class Pedestrian : MonoBehaviour, IThrowable
     float runSpeed = 4f;
 
     private bool hasBeenHit = false;
+    private bool onNavMesh = true;
 
     private PedestrianHandler handler = null;
 
@@ -184,7 +185,7 @@ public class Pedestrian : MonoBehaviour, IThrowable
                 isPickedUp = false;
                 ResetAgent();
             }
-        } 
+        }
         
         if(collision.gameObject.layer == projectileLayer)
         {
@@ -195,7 +196,7 @@ public class Pedestrian : MonoBehaviour, IThrowable
         {
             KnockDownAgent();
 
-            if(!hasBeenHit)
+            if (!hasBeenHit)
             {
                 ScoreKeeper.GetInstance().AddScore(-10);
                 hasBeenHit = true;
@@ -213,6 +214,11 @@ public class Pedestrian : MonoBehaviour, IThrowable
         if (collision.gameObject.layer == carLayer)
         {
             KnockDownAgent();
+        }
+
+        if(collision.gameObject.layer == groundLayer)
+        {
+            onNavMesh = true;
         }
     }
 
@@ -241,7 +247,7 @@ public class Pedestrian : MonoBehaviour, IThrowable
 
     public void Wait(ActionResult actionResult)
     {
-        if (knockedDown)
+        if (knockedDown && onNavMesh)
         {
             knockedDownTimer -= Time.deltaTime;
 
@@ -386,6 +392,7 @@ public class Pedestrian : MonoBehaviour, IThrowable
         rb.useGravity = true;
         knockedDown = true;
         knockedDownTimer = knockOutTime;
+        onNavMesh = false;
     }
 
     public void PerformGrabLogic()
