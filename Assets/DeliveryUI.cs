@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class DeliveryUI : MonoBehaviour
 {
     public Image image;
+    public float offset = 1.5f;
     
     // Start is called before the first frame update
     void Start()
@@ -29,7 +30,7 @@ public class DeliveryUI : MonoBehaviour
         if(Vector3.Dot(relPos, Camera.main.transform.forward) > 0)
         {
             image.enabled = true;
-            Vector3 pos = Camera.main.WorldToScreenPoint(recipient.transform.position + Vector3.up * 2).WithZ();
+            Vector3 pos = Camera.main.WorldToScreenPoint(recipient.transform.position + Vector3.up * offset).WithZ();
 
             image.transform.position = pos;
         }
