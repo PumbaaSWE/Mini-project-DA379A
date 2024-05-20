@@ -25,12 +25,13 @@ public class RigidbodyFinder : MonoBehaviour
         }
     }
 }
-[CustomEditor(typeof(RigidbodyFinder))]
-class RigidbodyFinderEditor : Editor
+
+//[CustomEditor(typeof(RigidbodyFinder))]
+class RigidbodyFinderEditor //: Editor
 {
-    public override void OnInspectorGUI()
-    {
-        if (GUILayout.Button("Test"))
-            ((RigidbodyFinder)target).RemapJoints();
-    }
+    //public override void OnInspectorGUI()
+    //{
+    //    if (GUILayout.Button("Test"))
+    //        ((RigidbodyFinder)target).RemapJoints();
+    //}
 }
